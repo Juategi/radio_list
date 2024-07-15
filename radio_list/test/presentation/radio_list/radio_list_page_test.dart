@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:radio_list/application/radio/radio_cubit.dart';
+import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
 import 'package:radio_list/domain/radio/radio_failure.dart';
 import 'package:radio_list/presentation/core/theme.dart';
-import 'package:radio_list/presentation/radios/radio_list_page.dart';
-import '../../application/radio/radio_cubit_test.mocks.dart';
+import 'package:radio_list/presentation/radio_list/radio_list_page.dart';
+import '../../application/radio_list/radio_cubit_test.mocks.dart';
 import '../../helpers/stubs/stubbed_radio.dart';
 
 void main() {
-  late RadioCubit radioCubit;
+  late RadioListCubit radioCubit;
   final MockRadioRepository mockRadioRepository = MockRadioRepository();
 
   setUp(() {
-    radioCubit = RadioCubit(mockRadioRepository);
+    radioCubit = RadioListCubit(mockRadioRepository);
   });
 
   setUpAll(() => HttpOverrides.global = null);

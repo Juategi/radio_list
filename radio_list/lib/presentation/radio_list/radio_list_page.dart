@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:radio_list/application/radio/radio_cubit.dart';
-import 'package:radio_list/presentation/radios/widgets/radio_tile.dart';
+import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
+import 'package:radio_list/presentation/radio_list/widgets/radio_tile.dart';
 import 'package:radio_list/utils/string_keys.dart';
 
 class RadioListPage extends StatelessWidget {
@@ -28,11 +28,13 @@ class RadioListPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: BlocBuilder<RadioCubit, RadioState>(
+          child: BlocBuilder<RadioListCubit, RadioListState>(
             builder: (context, state) {
               return state.map(
-                initial: (_) => const Center(
-                  child: CircularProgressIndicator(),
+                initial: (_) => Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
                 loaded: (radios) => GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

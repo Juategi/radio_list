@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radio_list/application/radio/radio_cubit.dart';
+import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
+import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
 import 'package:radio_list/injection.dart';
 import 'package:radio_list/presentation/core/theme.dart';
 import 'package:radio_list/presentation/dashboard/dashboard_page.dart';
@@ -23,7 +24,7 @@ class _MainAppState extends State<MainApp> {
 
   @override
   void initState() {
-    GetIt.instance<RadioCubit>().getRadios('Spain');
+    GetIt.instance<RadioListCubit>().getRadios('Spain');
     AppTheme.toogleTheme = _toggleTheme;
     super.initState();
   }
@@ -32,7 +33,8 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => GetIt.instance<RadioCubit>()),
+        BlocProvider(create: (context) => GetIt.instance<RadioListCubit>()),
+        BlocProvider(create: (context) => GetIt.instance<RadioPlayerCubit>()),
       ],
       child: MaterialApp(
         theme: darkTheme,

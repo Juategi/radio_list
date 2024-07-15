@@ -1,7 +1,11 @@
 import 'package:bottom_bar_matu/bottom_bar_matu.dart';
 import 'package:flutter/material.dart';
-import 'package:radio_list/presentation/radios/radio_list_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:radio_list/presentation/radio_list/radio_list_page.dart';
+import 'package:radio_list/presentation/radio_player/radio_player.dart';
 import 'package:radio_list/utils/string_keys.dart';
+
+import '../../application/radio_player/radio_player_cubit.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -37,13 +41,28 @@ class _DashboardPageState extends State<DashboardPage>
           _tabController.index = value;
         },
       ),
-      body: TabBarView(
-        controller: _tabController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          RadioListPage(),
-          SizedBox(),
-          SizedBox(),
+      body: Stack(
+        children: [
+          TabBarView(
+            controller: _tabController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: const [
+              RadioListPage(),
+              SizedBox(),
+              SizedBox(),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
+                builder: (context, state) {
+              return state.maybeWhen(
+                minimized: (radioSelected) => const RadioPlayer(),
+                full: (radioSelected) => const RadioPlayer(),
+                orElse: () => const SizedBox(),
+              );
+            }),
+          ),
         ],
       ),
     );

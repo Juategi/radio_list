@@ -3,19 +3,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
 import 'package:radio_list/domain/radio/radio_repository.dart';
 
-part 'radio_state.dart';
-part 'radio_cubit.freezed.dart';
+part 'radio_list_state.dart';
+part 'radio_list_cubit.freezed.dart';
 
-class RadioCubit extends Cubit<RadioState> {
+class RadioListCubit extends Cubit<RadioListState> {
   final RadioRepository _radioRepository;
 
-  RadioCubit(this._radioRepository) : super(const RadioState.initial());
+  RadioListCubit(this._radioRepository) : super(const RadioListState.initial());
 
   Future<void> getRadios(String countryCode) async {
     final result = await _radioRepository.getRadios(countryCode);
     result.fold(
-      (error) => emit(RadioState.error(error.message)),
-      (radios) => emit(RadioState.loaded(radios
+      (error) => emit(RadioListState.error(error.message)),
+      (radios) => emit(RadioListState.loaded(radios
           .where((radio) =>
               radio.favicon != null && !radio.favicon!.contains('.svg'))
           .toList())),
