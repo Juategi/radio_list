@@ -15,8 +15,10 @@ class RadioCubit extends Cubit<RadioState> {
     final result = await _radioRepository.getRadios(countryCode);
     result.fold(
       (error) => emit(RadioState.error(error.message)),
-      (radios) => emit(RadioState.loaded(
-          radios.where((radio) => radio.favicon != null).toList())),
+      (radios) => emit(RadioState.loaded(radios
+          .where((radio) =>
+              radio.favicon != null && !radio.favicon!.contains('.svg'))
+          .toList())),
     );
   }
 }

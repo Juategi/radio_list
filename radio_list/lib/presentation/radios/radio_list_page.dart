@@ -37,8 +37,7 @@ class RadioListPage extends StatelessWidget {
                 loaded: (radios) => GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.7,
-                    crossAxisSpacing: 5,
+                    childAspectRatio: 0.77,
                   ),
                   itemCount: radios.radios.length,
                   itemBuilder: (context, index) {

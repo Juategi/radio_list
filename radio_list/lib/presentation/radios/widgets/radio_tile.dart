@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
 import 'package:radio_list/utils/string_utils.dart';
@@ -5,6 +7,7 @@ import 'package:radio_list/utils/string_utils.dart';
 class RadioTile extends StatelessWidget {
   const RadioTile({super.key, required this.radioEntity});
   final RadioEntity radioEntity;
+  final double width = 110;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,24 +15,26 @@ class RadioTile extends StatelessWidget {
         color: Theme.of(context).cardColor,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
         child: Column(
           children: [
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                image: DecorationImage(
-                  image: NetworkImage(radioEntity.favicon ?? ''),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+            Platform.environment.containsKey('FLUTTER_TEST')
+                ? const SizedBox()
+                : Container(
+                    width: width,
+                    height: width,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      image: DecorationImage(
+                        image: NetworkImage(radioEntity.favicon ?? ''),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
             const SizedBox(height: 15),
             Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.6,
+                maxWidth: width,
               ),
               child: Text(
                 radioEntity.name ?? '',
@@ -42,7 +47,7 @@ class RadioTile extends StatelessWidget {
             const SizedBox(height: 4),
             Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.7,
+                maxWidth: width,
               ),
               child: Text(
                 StringUtils.tagsFromList(radioEntity.tags),

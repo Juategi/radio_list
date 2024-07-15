@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//Theme.of(context).textTheme.bodySmall,
-
 class AppTheme {
   static Function(ThemeMode mode)? toogleTheme;
 }
