@@ -1,0 +1,23 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/*.freezed.dart": true,
+    "**/*.g.dart": true,
+    "**/*.gr.dart": true,
+    "**/*.mocks.dart": true,
+    ".flutter-plugins": true,
+    ".flutter-plugins-dependencies": true,
+    ".packages": true
+  },
+  "explorerExclude.backup": {},
+  "java.configuration.updateBuildConfiguration": "automatic"
+}
