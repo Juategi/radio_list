@@ -32,16 +32,33 @@ class _DashboardPageState extends State<DashboardPage>
         backgroundColor: Colors.transparent,
         color: Theme.of(context).primaryColor,
         bubbleSize: 0,
+        height: 65,
         items: [
-          BottomBarItem(iconData: Icons.radio, label: StringKeys.radios),
-          BottomBarItem(iconData: Icons.favorite, label: StringKeys.favorites),
-          BottomBarItem(iconData: Icons.settings, label: StringKeys.settings),
+          BottomBarItem(
+            iconData: Icons.radio,
+            label: StringKeys.radios,
+            iconSize: 25,
+            labelTextStyle: Theme.of(context).textTheme.bodySmall,
+          ),
+          BottomBarItem(
+            iconData: Icons.favorite,
+            label: StringKeys.favorites,
+            iconSize: 25,
+            labelTextStyle: Theme.of(context).textTheme.bodySmall,
+          ),
+          BottomBarItem(
+            iconData: Icons.settings,
+            label: StringKeys.settings,
+            iconSize: 25,
+            labelTextStyle: Theme.of(context).textTheme.bodySmall,
+          ),
         ],
         onSelect: (int value) {
           _tabController.index = value;
         },
       ),
       body: Stack(
+        clipBehavior: Clip.none,
         children: [
           TabBarView(
             controller: _tabController,
@@ -57,8 +74,8 @@ class _DashboardPageState extends State<DashboardPage>
             child: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
                 builder: (context, state) {
               return state.maybeWhen(
-                minimized: (radioSelected) => const RadioPlayer(),
-                full: (radioSelected) => const RadioPlayer(),
+                minimized: (radioSelected) => RadioPlayer(),
+                full: (radioSelected) => RadioPlayer(),
                 orElse: () => const SizedBox(),
               );
             }),

@@ -1,44 +1,128 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
+import 'package:radio_list/domain/radio/radio_entity.dart';
+import 'package:radio_list/presentation/widgets/radio_image.dart';
 
-class RadioPlayer extends StatefulWidget {
-  const RadioPlayer({super.key});
+class RadioPlayer extends StatelessWidget {
+  RadioPlayer({super.key});
 
-  @override
-  State<RadioPlayer> createState() => _RadioPlayerState();
-}
+  final RadioPlayerCubit radioPlayerCubit = GetIt.instance<RadioPlayerCubit>();
 
-class _RadioPlayerState extends State<RadioPlayer> {
+  void toggleSheet() {
+    radioPlayerCubit.state.maybeWhen(
+      full: (_) {
+        radioPlayerCubit.toMinimized();
+      },
+      minimized: (_) {
+        radioPlayerCubit.toFullScreen();
+      },
+      hidden: () {
+        radioPlayerCubit.toMinimized();
+      },
+      orElse: () {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.green,
-      ),
+    bool isExpanded = radioPlayerCubit.state.maybeWhen(
+      full: (_) => true,
+      minimized: (_) => false,
+      hidden: () => false,
+      orElse: () => false,
+    );
+    RadioEntity? radioEntity = radioPlayerCubit.state.maybeWhen(
+      full: (radio) => radio,
+      minimized: (radio) => radio,
+      hidden: () => null,
+      orElse: () => null,
+    );
+    return Stack(
+      children: [
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: GestureDetector(
+            onTap: toggleSheet,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 400),
+              height: isExpanded ? MediaQuery.of(context).size.height : 70,
+              decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
+                ),
+              ),
+              child: isExpanded
+                  ? const RadioPlayerFullScreen()
+                  : RadioPlayerBar(
+                      radioEntity: radioEntity,
+                    ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RadioPlayerBar extends StatelessWidget {
+  const RadioPlayerBar({super.key, this.radioEntity});
+  final RadioEntity? radioEntity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              BlocProvider.of<RadioPlayerCubit>(context).toMinimized();
-            },
-            child: Text("to minimized"),
+          RadioImage(
+            favicon: radioEntity?.favicon ?? '',
+            width: 45,
+            withBackground: true,
           ),
-          ElevatedButton(
-            onPressed: () {
-              BlocProvider.of<RadioPlayerCubit>(context).toFullScreen();
-            },
-            child: Text('to full'),
+          const SizedBox(width: 8),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 5),
+              Text(
+                radioEntity?.name ?? '',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'Escuchando...',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              BlocProvider.of<RadioPlayerCubit>(context).hide();
-            },
-            child: Text('close'),
+          const Spacer(),
+          IgnorePointer(
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_upward_rounded),
+            ),
+          ),
+          const Spacer(),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.play_arrow_rounded, size: 40),
           ),
         ],
       ),
     );
+  }
+}
+
+class RadioPlayerFullScreen extends StatelessWidget {
+  const RadioPlayerFullScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

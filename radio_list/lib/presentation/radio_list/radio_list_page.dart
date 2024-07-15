@@ -11,8 +11,9 @@ class RadioListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 40,
         title: Text(StringKeys.hits,
-            style: Theme.of(context).textTheme.headlineLarge),
+            style: Theme.of(context).textTheme.headlineMedium),
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -39,7 +40,7 @@ class RadioListPage extends StatelessWidget {
                 loaded: (radios) => GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.77,
+                    childAspectRatio: 0.75,
                   ),
                   itemCount: radios.radios.length,
                   itemBuilder: (context, index) {

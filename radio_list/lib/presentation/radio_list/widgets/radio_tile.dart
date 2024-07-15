@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
+import 'package:radio_list/presentation/widgets/radio_image.dart';
 import 'package:radio_list/utils/string_utils.dart';
 
 class RadioTile extends StatelessWidget {
@@ -24,19 +23,10 @@ class RadioTile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
           child: Column(
             children: [
-              Platform.environment.containsKey('FLUTTER_TEST')
-                  ? const SizedBox()
-                  : Container(
-                      width: width,
-                      height: width,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                          image: NetworkImage(radioEntity.favicon ?? ''),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+              RadioImage(
+                favicon: radioEntity.favicon ?? '',
+                width: width,
+              ),
               const SizedBox(height: 15),
               Container(
                 constraints: BoxConstraints(
