@@ -90,7 +90,7 @@ class RadioBrowserDto {
       tags: json['tags'].toString().split(','),
       country: json['country'],
       countryCode: json['countrycode'],
-      iso31662: json['iso3166_2'],
+      iso31662: json['iso_3166_2'],
       state: json['state'],
       language: json['language'],
       languageCodes: json['languagecodes'],
@@ -116,10 +116,10 @@ class RadioBrowserDto {
           DateTime.tryParse(json['clicktimestamp_iso8601'] ?? ''),
       clickCount: json['clickcount'],
       clickTrend: json['clicktrend'],
-      sslError: json['sslerror'],
-      geoLat: json['geolat'],
-      geoLong: json['geolong'],
-      hasExtendedInfo: json['hasextendedinfo'],
+      sslError: json['ssl_error'],
+      geoLat: json['geo_lat'],
+      geoLong: json['geo_long'],
+      hasExtendedInfo: json['has_extended_info'],
     );
   }
 

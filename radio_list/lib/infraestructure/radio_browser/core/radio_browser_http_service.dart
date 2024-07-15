@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 //Not a generic http service, it is specific for the radio browser api
 class RadioBrowserHtttpService {
   final address = 'all.api.radio-browser.info';
+  final scheme = 'https';
   final headers = {
     'Content-Type': 'application/json',
     'User-Agent': 'RadioListJuan/0.0.1',
@@ -16,7 +17,7 @@ class RadioBrowserHtttpService {
       String host = resultAddress.host;
 
       final uri = Uri(
-        scheme: 'https',
+        scheme: scheme,
         host: host,
         path: path,
       );
