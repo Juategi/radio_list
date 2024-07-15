@@ -36,9 +36,9 @@ RadioBrowserDto stubbedRadioDto = RadioBrowserDto(
   clickCount: 0,
   clickTrend: 0,
   sslError: 0,
-  geoLat: 'random_geo_lat',
-  geoLong: 'random_geo_long',
-  hasExtendedInfo: 'random_has_extended_info',
+  geoLat: 0.0,
+  geoLong: 0.0,
+  hasExtendedInfo: false,
 );
 
 Map<String, dynamic> stubbedRadioJson = {
@@ -75,9 +75,9 @@ Map<String, dynamic> stubbedRadioJson = {
   'clickcount': 0,
   'clicktrend': 0,
   'ssl_error': 0,
-  'geo_lat': 'random_geo_lat',
-  'geo_long': 'random_geo_long',
-  'has_extended_info': 'random_has_extended_info',
+  'geo_lat': 0.0,
+  'geo_long': 0.0,
+  'has_extended_info': false,
 };
 
 RadioEntity stubbedRadioEntity = RadioEntity(

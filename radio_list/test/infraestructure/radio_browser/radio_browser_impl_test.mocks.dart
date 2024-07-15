@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:typed_data' as _i5;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
@@ -62,25 +63,13 @@ class MockRadioBrowserHtttpService extends _i1.Mock
       ) as Map<String, String>);
 
   @override
-  _i4.Future<String> get(String? path) => (super.noSuchMethod(
+  _i4.Future<_i5.Uint8List> get(String? path) => (super.noSuchMethod(
         Invocation.method(
           #get,
           [path],
         ),
-        returnValue: _i4.Future<String>.value(_i3.dummyValue<String>(
-          this,
-          Invocation.method(
-            #get,
-            [path],
-          ),
-        )),
+        returnValue: _i4.Future<_i5.Uint8List>.value(_i5.Uint8List(0)),
         returnValueForMissingStub:
-            _i4.Future<String>.value(_i3.dummyValue<String>(
-          this,
-          Invocation.method(
-            #get,
-            [path],
-          ),
-        )),
-      ) as _i4.Future<String>);
+            _i4.Future<_i5.Uint8List>.value(_i5.Uint8List(0)),
+      ) as _i4.Future<_i5.Uint8List>);
 }

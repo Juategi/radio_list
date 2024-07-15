@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radio_list/application/radio/radio_cubit.dart';
 import 'package:radio_list/injection.dart';
-import 'package:radio_list/domain/radio/radio_repository.dart';
 import 'package:radio_list/presentation/core/theme.dart';
+import 'package:radio_list/presentation/dashboard/dashboard_page.dart';
 
 void main() {
   Injection.setup();
@@ -22,26 +22,23 @@ class _MainAppState extends State<MainApp> {
   ThemeMode _themeMode = ThemeMode.system;
 
   @override
+  void initState() {
+    GetIt.instance<RadioCubit>().getRadios('Spain');
+    AppTheme.toogleTheme = _toggleTheme;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    GetIt.instance<RadioRepository>().getRadios('es').then((result) {
-      result.fold(
-        (l) => print('Error: ${l.message}'),
-        (r) => print('Radios: $r'),
-      );
-    });
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => GetIt.instance<RadioCubit>()),
       ],
       child: MaterialApp(
-        theme: lightTheme,
+        theme: darkTheme,
         darkTheme: darkTheme,
         themeMode: _themeMode,
-        home: const Scaffold(
-          body: Center(
-            child: Text('Hello World!'),
-          ),
-        ),
+        home: const DashboardPage(),
       ),
     );
   }

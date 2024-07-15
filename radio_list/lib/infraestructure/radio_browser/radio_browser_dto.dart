@@ -34,9 +34,9 @@ class RadioBrowserDto {
   final int? clickCount;
   final int? clickTrend;
   final int? sslError;
-  final String? geoLat;
-  final String? geoLong;
-  final String? hasExtendedInfo;
+  final double? geoLat;
+  final double? geoLong;
+  final bool? hasExtendedInfo;
 
   RadioBrowserDto({
     this.changeUuid,

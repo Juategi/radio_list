@@ -28,8 +28,8 @@ void main() {
 
   group('getRadios', () {
     test('should return a Right<List<RadioEntity> if successful', () async {
-      when(mockHttpService.get(any))
-          .thenAnswer((_) => Future.value(json.encode([stubbedRadioJson])));
+      when(mockHttpService.get(any)).thenAnswer(
+          (_) => Future.value(utf8.encode(json.encode([stubbedRadioJson]))));
       final result = await radioBrowserRepository.getRadios('es');
       expect(result, isA<Right>());
     });
