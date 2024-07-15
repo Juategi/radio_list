@@ -39,11 +39,12 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockRadioRepository extends _i1.Mock implements _i3.RadioRepository {
   @override
-  _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>> getRadios() =>
+  _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>> getRadios(
+          String? countryCode) =>
       (super.noSuchMethod(
         Invocation.method(
           #getRadios,
-          [],
+          [countryCode],
         ),
         returnValue: _i4
             .Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>.value(
@@ -51,7 +52,7 @@ class MockRadioRepository extends _i1.Mock implements _i3.RadioRepository {
           this,
           Invocation.method(
             #getRadios,
-            [],
+            [countryCode],
           ),
         )),
         returnValueForMissingStub: _i4
@@ -60,7 +61,7 @@ class MockRadioRepository extends _i1.Mock implements _i3.RadioRepository {
           this,
           Invocation.method(
             #getRadios,
-            [],
+            [countryCode],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>);

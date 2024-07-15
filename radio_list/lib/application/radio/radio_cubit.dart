@@ -11,8 +11,8 @@ class RadioCubit extends Cubit<RadioState> {
 
   RadioCubit(this._radioRepository) : super(const RadioState.initial());
 
-  Future<void> getRadios() async {
-    final result = await _radioRepository.getRadios();
+  Future<void> getRadios(String countryCode) async {
+    final result = await _radioRepository.getRadios(countryCode);
     result.fold(
       (error) => emit(RadioState.error(error.message)),
       (radios) => emit(RadioState.loaded(radios)),

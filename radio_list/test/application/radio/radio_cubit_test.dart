@@ -22,9 +22,9 @@ void main() {
 
   group('getRadios', () {
     test('should emit a RadioLoaded state when succesful', () async {
-      when(mockRadioRepository.getRadios())
+      when(mockRadioRepository.getRadios('es'))
           .thenAnswer((_) => Future.value(Right([stubbedRadioEntity])));
-      await radioCubit.getRadios();
+      await radioCubit.getRadios('es');
       expect(
         radioCubit.state,
         RadioState.loaded([stubbedRadioEntity]),
@@ -32,9 +32,9 @@ void main() {
     });
 
     test('should emit a RadioError state when unsuccesful', () async {
-      when(mockRadioRepository.getRadios())
+      when(mockRadioRepository.getRadios('es'))
           .thenAnswer((_) => Future.value(Left(RadioFailure('error'))));
-      await radioCubit.getRadios();
+      await radioCubit.getRadios('es');
       expect(
         radioCubit.state,
         const RadioState.error('error'),

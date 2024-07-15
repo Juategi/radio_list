@@ -30,13 +30,13 @@ void main() {
     test('should return a Right<List<RadioEntity> if successful', () async {
       when(mockHttpService.get(any))
           .thenAnswer((_) => Future.value(json.encode([stubbedRadioJson])));
-      final result = await radioBrowserRepository.getRadios();
+      final result = await radioBrowserRepository.getRadios('es');
       expect(result, isA<Right>());
     });
 
     test('should return a Left<RadioFailure> if unsuccessful', () async {
       when(mockHttpService.get(any)).thenThrow(Exception('error'));
-      final result = await radioBrowserRepository.getRadios();
+      final result = await radioBrowserRepository.getRadios('es');
       expect(result, isA<Left>());
     });
   });

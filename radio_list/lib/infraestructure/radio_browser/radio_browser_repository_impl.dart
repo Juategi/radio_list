@@ -12,12 +12,11 @@ class RadioBrowserRepositoryImpl implements RadioRepository {
 
   RadioBrowserRepositoryImpl(this._httpService);
 
-  static const language = 'es';
-  final path = '/json/stations/bycountrycodeexact/$language';
-
   @override
-  Future<Either<RadioFailure, List<RadioEntity>>> getRadios() async {
+  Future<Either<RadioFailure, List<RadioEntity>>> getRadios(
+      String countryCode) async {
     try {
+      final path = '/json/stations/bycountrycodeexact/$countryCode';
       String result = await _httpService.get(path);
       final rawList = json.decode(result) as List<dynamic>;
       final radios = rawList
