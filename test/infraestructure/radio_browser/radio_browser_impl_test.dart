@@ -99,7 +99,8 @@ void main() {
     });
 
     test('should return a Left<RadioFailure> if unsuccessful', () async {
-      when(mockHttpService.get(any)).thenThrow(Exception('error'));
+      when(mockHttpService.get(any, name: 'text', country: 'Spain'))
+          .thenThrow(Exception('error'));
 
       final result = await radioBrowserRepository.searchRadios('text', 'Spain');
 

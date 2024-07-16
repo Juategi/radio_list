@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
 import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
 import 'package:radio_list/domain/countries/country.dart';
@@ -19,6 +20,11 @@ void main() {
 
   setUp(() {
     radioCubit = RadioListCubit(mockRadioRepository);
+    GetIt.I.registerSingleton<RadioListCubit>(radioCubit);
+  });
+
+  tearDown(() {
+    GetIt.I.unregister<RadioListCubit>();
   });
 
   setUpAll(() => HttpOverrides.global = null);
@@ -30,7 +36,7 @@ void main() {
             providers: [
               BlocProvider(create: (context) => radioCubit),
             ],
-            child: RadioListPage(),
+            child: const RadioListPage(),
           ),
         ),
       );
@@ -39,7 +45,8 @@ void main() {
     testWidgets('should show radio tiles', (tester) async {
       when(mockRadioRepository.getRadios(any))
           .thenAnswer((_) async => Right([stubbedRadioEntity]));
-
+      when(mockRadioRepository.searchRadios(any, any))
+          .thenAnswer((_) async => Right([stubbedRadioEntity]));
       await radioCubit.getRadios(Country.spain);
       await tester.pumpWidget(testWidget());
       await tester.pump();
@@ -49,6 +56,8 @@ void main() {
 
     testWidgets('should show error', (tester) async {
       when(mockRadioRepository.getRadios(any))
+          .thenAnswer((_) async => Left(RadioFailure('error')));
+      when(mockRadioRepository.searchRadios(any, any))
           .thenAnswer((_) async => Left(RadioFailure('error')));
 
       await radioCubit.getRadios(Country.spain);
