@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
+import 'package:radio_list/domain/countries/country.dart';
 import 'package:radio_list/domain/radio/radio_failure.dart';
 import 'package:radio_list/domain/radio/radio_repository.dart';
 
@@ -22,9 +23,9 @@ void main() {
 
   group('getRadios', () {
     test('should emit a RadioLoaded state when succesful', () async {
-      when(mockRadioRepository.getRadios('es'))
+      when(mockRadioRepository.getRadios(any))
           .thenAnswer((_) => Future.value(Right([stubbedRadioEntity])));
-      await radioCubit.getRadios('es');
+      await radioCubit.getRadios(Country.spain);
       expect(
         radioCubit.state,
         RadioListState.loaded([stubbedRadioEntity]),
@@ -32,12 +33,12 @@ void main() {
     });
 
     test('should emit a RadioError state when unsuccesful', () async {
-      when(mockRadioRepository.getRadios('es'))
+      when(mockRadioRepository.getRadios(any))
           .thenAnswer((_) => Future.value(Left(RadioFailure('error'))));
-      await radioCubit.getRadios('es');
+      await radioCubit.getRadios(Country.spain);
       expect(
         radioCubit.state,
-        const RadioListState.error('error'),
+        const RadioListState.error("error: reload app"),
       );
     });
   });

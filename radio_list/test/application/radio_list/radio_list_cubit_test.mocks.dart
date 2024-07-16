@@ -94,18 +94,18 @@ class MockRadioRepository extends _i1.Mock implements _i3.RadioRepository {
           ) as _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>> saveFavoriteRadio(
+  _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>> toggleFavoriteRadio(
           String? radioId) =>
       (super.noSuchMethod(
         Invocation.method(
-          #saveFavoriteRadio,
+          #toggleFavoriteRadio,
           [radioId],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>>.value(
             _FakeEither_0<_i5.RadioFailure, _i2.Unit>(
           this,
           Invocation.method(
-            #saveFavoriteRadio,
+            #toggleFavoriteRadio,
             [radioId],
           ),
         )),
@@ -114,7 +114,7 @@ class MockRadioRepository extends _i1.Mock implements _i3.RadioRepository {
                 _FakeEither_0<_i5.RadioFailure, _i2.Unit>(
           this,
           Invocation.method(
-            #saveFavoriteRadio,
+            #toggleFavoriteRadio,
             [radioId],
           ),
         )),

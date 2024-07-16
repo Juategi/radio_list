@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
+import 'package:radio_list/domain/countries/country.dart';
 import 'package:radio_list/domain/radio/radio_failure.dart';
 import 'package:radio_list/presentation/core/theme.dart';
 import 'package:radio_list/presentation/radio_list/radio_list_page.dart';
@@ -38,7 +39,7 @@ void main() {
     testWidgets('should show radio tiles', (tester) async {
       when(mockRadioRepository.getRadios(any))
           .thenAnswer((_) async => Right([stubbedRadioEntity]));
-      await radioCubit.getRadios('Spain');
+      await radioCubit.getRadios(Country.spain);
       await tester.pumpWidget(testWidget());
       await tester.pump();
       expect(find.text('random_name'), findsOneWidget);
@@ -47,10 +48,10 @@ void main() {
     testWidgets('should show error', (tester) async {
       when(mockRadioRepository.getRadios(any))
           .thenAnswer((_) async => Left(RadioFailure('error')));
-      await radioCubit.getRadios('Spain');
+      await radioCubit.getRadios(Country.spain);
       await tester.pumpWidget(testWidget());
       await tester.pump();
-      expect(find.text('error'), findsOneWidget);
+      expect(find.textContaining('error'), findsOneWidget);
     });
   });
 }

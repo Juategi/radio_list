@@ -77,10 +77,15 @@ class MockRadioBrowserHtttpService extends _i1.Mock
       ) as Map<String, String>);
 
   @override
-  _i5.Future<_i6.Uint8List> get(String? path) => (super.noSuchMethod(
+  _i5.Future<_i6.Uint8List> get(
+    String? path, {
+    String? uuids,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #get,
           [path],
+          {#uuids: uuids},
         ),
         returnValue: _i5.Future<_i6.Uint8List>.value(_i6.Uint8List(0)),
         returnValueForMissingStub:
