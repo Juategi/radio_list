@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
 import 'package:radio_list/application/settings/settings_controller.dart';
 import 'package:radio_list/domain/countries/country.dart';
+import 'package:radio_list/presentation/core/decorations.dart';
 import 'package:radio_list/utils/string_keys.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -22,18 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
         toolbarHeight: 40,
         title: Text(StringKeys.settings,
             style: Theme.of(context).textTheme.headlineMedium),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: <Color>[
-                Theme.of(context).appBarTheme.backgroundColor!,
-                Colors.black54,
-              ],
-            ),
-          ),
-        ),
+        flexibleSpace: Container(decoration: getAppBarDecoration(context)),
       ),
       body: SafeArea(
         child: Padding(

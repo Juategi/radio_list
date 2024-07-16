@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
+import 'package:radio_list/application/settings/settings_controller.dart';
+import 'package:radio_list/presentation/core/decorations.dart';
 import 'package:radio_list/presentation/radio_list/widgets/radio_tile.dart';
 import 'package:radio_list/utils/string_keys.dart';
 
@@ -12,19 +14,19 @@ class RadioListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
-        title: Text(StringKeys.hits,
-            style: Theme.of(context).textTheme.headlineMedium),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: <Color>[
-                Theme.of(context).appBarTheme.backgroundColor!,
-                Colors.black54,
-              ],
+        title: Row(
+          children: [
+            Text(StringKeys.hits,
+                style: Theme.of(context).textTheme.headlineMedium),
+            const SizedBox(width: 12),
+            Image.asset(
+              SettingsController.countrySelected.flag,
+              width: 25,
             ),
-          ),
+          ],
+        ),
+        flexibleSpace: Container(
+          decoration: getAppBarDecoration(context),
         ),
       ),
       body: SafeArea(

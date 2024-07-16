@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_list/application/favorites/favorites_cubit.dart';
+import 'package:radio_list/presentation/core/decorations.dart';
 import 'package:radio_list/presentation/favorites_list/widgets/favorite_tile.dart';
 import 'package:radio_list/utils/string_keys.dart';
 
@@ -15,16 +16,7 @@ class FavoritesListPage extends StatelessWidget {
         title: Text(StringKeys.favoriteRadios,
             style: Theme.of(context).textTheme.headlineMedium),
         flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: <Color>[
-                Theme.of(context).appBarTheme.backgroundColor!,
-                Colors.black54,
-              ],
-            ),
-          ),
+          decoration: getAppBarDecoration(context),
         ),
       ),
       body: SafeArea(
