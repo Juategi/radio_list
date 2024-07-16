@@ -1,5 +1,5 @@
 class RadioEntity {
-  final String? id;
+  final String id;
   final String name;
   final String urlResolved;
   final String? homepage;
@@ -7,7 +7,7 @@ class RadioEntity {
   final List<String> tags;
 
   RadioEntity({
-    this.id,
+    required this.id,
     required this.name,
     required this.urlResolved,
     this.homepage,

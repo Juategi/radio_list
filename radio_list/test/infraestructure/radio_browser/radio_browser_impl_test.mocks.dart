@@ -3,13 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
-import 'dart:typed_data' as _i5;
+import 'dart:async' as _i5;
+import 'dart:typed_data' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i3;
+import 'package:mockito/src/dummies.dart' as _i4;
 import 'package:radio_list/infraestructure/radio_browser/core/radio_browser_http_service.dart'
-    as _i2;
+    as _i3;
+import 'package:radio_list/infraestructure/radio_browser/core/shared_preferences_service.dart'
+    as _i7;
+import 'package:shared_preferences/shared_preferences.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,19 +27,30 @@ import 'package:radio_list/infraestructure/radio_browser/core/radio_browser_http
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeSharedPreferences_0 extends _i1.SmartFake
+    implements _i2.SharedPreferences {
+  _FakeSharedPreferences_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [RadioBrowserHtttpService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRadioBrowserHtttpService extends _i1.Mock
-    implements _i2.RadioBrowserHtttpService {
+    implements _i3.RadioBrowserHtttpService {
   @override
   String get address => (super.noSuchMethod(
         Invocation.getter(#address),
-        returnValue: _i3.dummyValue<String>(
+        returnValue: _i4.dummyValue<String>(
           this,
           Invocation.getter(#address),
         ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
+        returnValueForMissingStub: _i4.dummyValue<String>(
           this,
           Invocation.getter(#address),
         ),
@@ -45,11 +59,11 @@ class MockRadioBrowserHtttpService extends _i1.Mock
   @override
   String get scheme => (super.noSuchMethod(
         Invocation.getter(#scheme),
-        returnValue: _i3.dummyValue<String>(
+        returnValue: _i4.dummyValue<String>(
           this,
           Invocation.getter(#scheme),
         ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
+        returnValueForMissingStub: _i4.dummyValue<String>(
           this,
           Invocation.getter(#scheme),
         ),
@@ -63,13 +77,59 @@ class MockRadioBrowserHtttpService extends _i1.Mock
       ) as Map<String, String>);
 
   @override
-  _i4.Future<_i5.Uint8List> get(String? path) => (super.noSuchMethod(
+  _i5.Future<_i6.Uint8List> get(String? path) => (super.noSuchMethod(
         Invocation.method(
           #get,
           [path],
         ),
-        returnValue: _i4.Future<_i5.Uint8List>.value(_i5.Uint8List(0)),
+        returnValue: _i5.Future<_i6.Uint8List>.value(_i6.Uint8List(0)),
         returnValueForMissingStub:
-            _i4.Future<_i5.Uint8List>.value(_i5.Uint8List(0)),
-      ) as _i4.Future<_i5.Uint8List>);
+            _i5.Future<_i6.Uint8List>.value(_i6.Uint8List(0)),
+      ) as _i5.Future<_i6.Uint8List>);
+}
+
+/// A class which mocks [SharedPreferencesService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSharedPreferencesService extends _i1.Mock
+    implements _i7.SharedPreferencesService {
+  @override
+  _i2.SharedPreferences get sharedPreferences => (super.noSuchMethod(
+        Invocation.getter(#sharedPreferences),
+        returnValue: _FakeSharedPreferences_0(
+          this,
+          Invocation.getter(#sharedPreferences),
+        ),
+        returnValueForMissingStub: _FakeSharedPreferences_0(
+          this,
+          Invocation.getter(#sharedPreferences),
+        ),
+      ) as _i2.SharedPreferences);
+
+  @override
+  _i5.Future<void> saveList(
+    String? key,
+    List<String>? value,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveList,
+          [
+            key,
+            value,
+          ],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<List<String>?> getList(String? key) => (super.noSuchMethod(
+        Invocation.method(
+          #getList,
+          [key],
+        ),
+        returnValue: _i5.Future<List<String>?>.value(),
+        returnValueForMissingStub: _i5.Future<List<String>?>.value(),
+      ) as _i5.Future<List<String>?>);
 }

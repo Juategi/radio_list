@@ -1,8 +1,10 @@
 import 'package:bottom_bar_matu/bottom_bar_matu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:radio_list/presentation/favorites_list/favorites_list_page.dart';
 import 'package:radio_list/presentation/radio_list/radio_list_page.dart';
 import 'package:radio_list/presentation/radio_player/radio_player.dart';
+import 'package:radio_list/presentation/settings/settings_page.dart';
 import 'package:radio_list/utils/string_keys.dart';
 
 import '../../application/radio_player/radio_player_cubit.dart';
@@ -41,7 +43,7 @@ class _DashboardPageState extends State<DashboardPage>
             labelTextStyle: Theme.of(context).textTheme.bodySmall,
           ),
           BottomBarItem(
-            iconData: Icons.favorite,
+            iconData: Icons.workspace_premium,
             label: StringKeys.favorites,
             iconSize: 25,
             labelTextStyle: Theme.of(context).textTheme.bodySmall,
@@ -65,8 +67,8 @@ class _DashboardPageState extends State<DashboardPage>
             physics: const NeverScrollableScrollPhysics(),
             children: const [
               RadioListPage(),
-              SizedBox(),
-              SizedBox(),
+              FavoritesListPage(),
+              SettingsPage(),
             ],
           ),
           Align(

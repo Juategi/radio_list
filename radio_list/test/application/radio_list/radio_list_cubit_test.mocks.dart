@@ -65,4 +65,58 @@ class MockRadioRepository extends _i1.Mock implements _i3.RadioRepository {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>
+      getFavoriteRadios() => (super.noSuchMethod(
+            Invocation.method(
+              #getFavoriteRadios,
+              [],
+            ),
+            returnValue: _i4.Future<
+                    _i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>.value(
+                _FakeEither_0<_i5.RadioFailure, List<_i6.RadioEntity>>(
+              this,
+              Invocation.method(
+                #getFavoriteRadios,
+                [],
+              ),
+            )),
+            returnValueForMissingStub: _i4.Future<
+                    _i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>.value(
+                _FakeEither_0<_i5.RadioFailure, List<_i6.RadioEntity>>(
+              this,
+              Invocation.method(
+                #getFavoriteRadios,
+                [],
+              ),
+            )),
+          ) as _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>> saveFavoriteRadio(
+          String? radioId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #saveFavoriteRadio,
+          [radioId],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>>.value(
+            _FakeEither_0<_i5.RadioFailure, _i2.Unit>(
+          this,
+          Invocation.method(
+            #saveFavoriteRadio,
+            [radioId],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>>.value(
+                _FakeEither_0<_i5.RadioFailure, _i2.Unit>(
+          this,
+          Invocation.method(
+            #saveFavoriteRadio,
+            [radioId],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>>);
 }

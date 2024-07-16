@@ -6,17 +6,22 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:radio_list/domain/radio/radio_repository.dart';
 import 'package:radio_list/infraestructure/radio_browser/core/radio_browser_http_service.dart';
+import 'package:radio_list/infraestructure/radio_browser/core/shared_preferences_service.dart';
 import 'package:radio_list/infraestructure/radio_browser/radio_browser_repository_impl.dart';
 import '../../helpers/stubs/stubbed_radio.dart';
 import 'radio_browser_impl_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<RadioBrowserHtttpService>(),
+  MockSpec<SharedPreferencesService>(),
 ])
 void main() {
   final MockRadioBrowserHtttpService mockHttpService =
       MockRadioBrowserHtttpService();
-  final radioBrowserRepository = RadioBrowserRepositoryImpl(mockHttpService);
+  final MockSharedPreferencesService mocSharedPreferencesService =
+      MockSharedPreferencesService();
+  final radioBrowserRepository =
+      RadioBrowserRepositoryImpl(mockHttpService, mocSharedPreferencesService);
 
   setUp(() {
     GetIt.instance.registerSingleton<RadioRepository>(radioBrowserRepository);

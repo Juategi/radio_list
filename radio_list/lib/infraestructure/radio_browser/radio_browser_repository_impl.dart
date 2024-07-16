@@ -39,8 +39,8 @@ class RadioBrowserRepositoryImpl implements RadioRepository {
       if (favorites.isEmpty) {
         return const Right([]);
       }
-      final path = '/json/stations/byuuid/${favorites.join(',')}';
-      final result = await _httpService.get(path);
+      const path = '/json/stations/byuuid';
+      final result = await _httpService.get(path, uuids: favorites.join(','));
       final rawList = json.decode(utf8.decode(result)) as List<dynamic>;
       final radios = rawList
           .map((radio) => RadioBrowserDto.fromJson(radio).toDomain())
@@ -52,11 +52,15 @@ class RadioBrowserRepositoryImpl implements RadioRepository {
   }
 
   @override
-  Future<Either<RadioFailure, Unit>> saveFavoriteRadio(String radioId) async {
+  Future<Either<RadioFailure, Unit>> toggleFavoriteRadio(String radioId) async {
     try {
       List<String> favorites =
           await _sharedPreferencesService.getList(favoritesKey) ?? [];
-      favorites.add(radioId);
+      if (favorites.contains(radioId)) {
+        favorites.remove(radioId);
+      } else {
+        favorites.add(radioId);
+      }
       _sharedPreferencesService.saveList(favoritesKey, favorites);
       return const Right(unit);
     } on Exception catch (e) {

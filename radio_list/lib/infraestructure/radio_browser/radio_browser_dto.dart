@@ -125,7 +125,7 @@ class RadioBrowserDto {
 
   RadioEntity toDomain() {
     return RadioEntity(
-      id: stationUuid,
+      id: stationUuid ?? '-1',
       name: name ?? '',
       urlResolved: urlResolved ?? '',
       homepage: homepage,

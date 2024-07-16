@@ -66,8 +66,6 @@ class RadioPlayer extends StatelessWidget {
             bottom: 0,
             child: GestureDetector(
               onTap: toggleSheet,
-              //onVerticalDragEnd: (_) => toggleSheet(),
-              //onVerticalDragDown: (_) => toggleSheet(),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 400),
                 height: isExpanded ? MediaQuery.of(context).size.height : 75,

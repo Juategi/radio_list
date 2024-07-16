@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:radio_list/application/favorites/favorites_cubit.dart';
 import 'package:radio_list/application/radio_audio/radio_audio_cubit.dart';
 import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
@@ -15,6 +16,7 @@ class RadioPlayerFullScreen extends StatelessWidget {
 
   final RadioAudioCubit radioAudioCubit = GetIt.instance<RadioAudioCubit>();
   final RadioPlayerCubit radioPlayerCubit = GetIt.instance<RadioPlayerCubit>();
+  final FavoritesCubit favoritesCubit = GetIt.instance<FavoritesCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,36 @@ class RadioPlayerFullScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                BlocBuilder<FavoritesCubit, FavoritesState>(
+                    builder: (context, state) {
+                  return IconButton(
+                      onPressed: () {
+                        favoritesCubit.toggleFavoriteRadio(radioEntity!.id);
+                      },
+                      icon: state.maybeWhen(
+                        loaded: (radios) {
+                          return radios.any(
+                                  (element) => element.id == radioEntity!.id)
+                              ? const Icon(
+                                  Icons.workspace_premium,
+                                  size: 30,
+                                  color: Colors.yellow,
+                                )
+                              : const Icon(
+                                  Icons.workspace_premium_outlined,
+                                  size: 30,
+                                  color: Colors.white,
+                                );
+                        },
+                        orElse: () => const Icon(
+                          Icons.favorite_border_rounded,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                      ));
+                }),
                 IconButton(
                   onPressed: () {
                     radioAudioCubit.stop();

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:radio_list/domain/countries/country.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
 import 'package:radio_list/domain/radio/radio_repository.dart';
 
@@ -11,10 +12,10 @@ class RadioListCubit extends Cubit<RadioListState> {
 
   RadioListCubit(this._radioRepository) : super(const RadioListState.initial());
 
-  Future<void> getRadios(String countryCode) async {
-    final result = await _radioRepository.getRadios(countryCode);
+  Future<void> getRadios(Country country) async {
+    final result = await _radioRepository.getRadios(country.toString());
     result.fold(
-      (error) => emit(const RadioListState.error("Error: reload app")),
+      (error) => emit(const RadioListState.error("error: reload app")),
       (radios) => emit(RadioListState.loaded(radios
           .where((radio) =>
               radio.favicon != null &&
