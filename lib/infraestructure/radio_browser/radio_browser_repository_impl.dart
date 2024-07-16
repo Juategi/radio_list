@@ -67,4 +67,21 @@ class RadioBrowserRepositoryImpl implements RadioRepository {
       return Left(RadioFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<RadioFailure, List<RadioEntity>>> searchRadios(
+      String name, String countryCode) async {
+    try {
+      const path = '/json/stations/search';
+      final result =
+          await _httpService.get(path, name: name, country: countryCode);
+      final rawList = json.decode(utf8.decode(result)) as List<dynamic>;
+      final radios = rawList
+          .map((radio) => RadioBrowserDto.fromJson(radio).toDomain())
+          .toList();
+      return Right(radios);
+    } on Exception catch (e) {
+      return Left(RadioFailure(e.toString()));
+    }
+  }
 }

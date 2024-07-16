@@ -30,7 +30,7 @@ void main() {
             providers: [
               BlocProvider(create: (context) => radioCubit),
             ],
-            child: const RadioListPage(),
+            child: RadioListPage(),
           ),
         ),
       );

@@ -28,4 +28,22 @@ class RadioListCubit extends Cubit<RadioListState> {
       ),
     );
   }
+
+  Future<void> searchRadios(String name, Country? country) async {
+    final result =
+        await _radioRepository.searchRadios(name, country.toString());
+    result.fold(
+      (error) => emit(const RadioListState.error("error: reload app")),
+      (radios) => emit(
+        RadioListState.loaded(
+          radios
+              .where((radio) =>
+                  radio.favicon != null &&
+                  radio.favicon!.trim().isNotEmpty &&
+                  !radio.favicon!.contains('.svg'))
+              .toList(),
+        ),
+      ),
+    );
+  }
 }

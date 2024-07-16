@@ -119,4 +119,43 @@ class MockRadioRepository extends _i1.Mock implements _i3.RadioRepository {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.RadioFailure, _i2.Unit>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>> searchRadios(
+    String? name,
+    String? countryCode,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchRadios,
+          [
+            name,
+            countryCode,
+          ],
+        ),
+        returnValue: _i4
+            .Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>.value(
+            _FakeEither_0<_i5.RadioFailure, List<_i6.RadioEntity>>(
+          this,
+          Invocation.method(
+            #searchRadios,
+            [
+              name,
+              countryCode,
+            ],
+          ),
+        )),
+        returnValueForMissingStub: _i4
+            .Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>.value(
+            _FakeEither_0<_i5.RadioFailure, List<_i6.RadioEntity>>(
+          this,
+          Invocation.method(
+            #searchRadios,
+            [
+              name,
+              countryCode,
+            ],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.RadioFailure, List<_i6.RadioEntity>>>);
 }

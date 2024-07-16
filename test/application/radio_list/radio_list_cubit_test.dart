@@ -46,4 +46,30 @@ void main() {
       );
     });
   });
+
+  group('searchRadios', () {
+    test('should emit a RadioLoaded state when succesful', () async {
+      when(mockRadioRepository.searchRadios(any, any))
+          .thenAnswer((_) => Future.value(Right([stubbedRadioEntity])));
+
+      await radioCubit.searchRadios('text', Country.spain);
+
+      expect(
+        radioCubit.state,
+        RadioListState.loaded([stubbedRadioEntity]),
+      );
+    });
+
+    test('should emit a RadioError state when unsuccesful', () async {
+      when(mockRadioRepository.searchRadios(any, any))
+          .thenAnswer((_) => Future.value(Left(RadioFailure('error'))));
+
+      await radioCubit.searchRadios('text', Country.spain);
+
+      expect(
+        radioCubit.state,
+        const RadioListState.error("error: reload app"),
+      );
+    });
+  });
 }

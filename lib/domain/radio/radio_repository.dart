@@ -6,4 +6,6 @@ abstract class RadioRepository {
   Future<Either<RadioFailure, List<RadioEntity>>> getRadios(String countryCode);
   Future<Either<RadioFailure, List<RadioEntity>>> getFavoriteRadios();
   Future<Either<RadioFailure, Unit>> toggleFavoriteRadio(String radioId);
+  Future<Either<RadioFailure, List<RadioEntity>>> searchRadios(
+      String name, String countryCode);
 }

@@ -73,10 +73,10 @@ class _DashboardPageState extends State<DashboardPage>
           TabBarView(
             controller: _tabController,
             physics: const NeverScrollableScrollPhysics(),
-            children: const [
+            children: [
               RadioListPage(),
-              FavoritesListPage(),
-              SettingsPage(),
+              const FavoritesListPage(),
+              const SettingsPage(),
             ],
           ),
           Align(

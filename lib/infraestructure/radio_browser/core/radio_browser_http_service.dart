@@ -11,7 +11,8 @@ class RadioBrowserHtttpService {
     'Content-Type': 'application/json',
     'User-Agent': 'RadioListJuan/0.0.1',
   };
-  Future<Uint8List> get(String path, {String? uuids}) async {
+  Future<Uint8List> get(String path,
+      {String? uuids, String? name, String? country}) async {
     final addresses = await InternetAddress.lookup(address);
     for (InternetAddress address in addresses) {
       InternetAddress resultAddress = await address.reverse();
@@ -22,6 +23,8 @@ class RadioBrowserHtttpService {
         'offset': '0',
         'order': 'clicktrend',
         if (uuids != null) 'uuids': uuids,
+        if (name != null) 'name': name,
+        if (country != null) 'country': country,
       });
 
       http.Response response = await http.post(uri, headers: headers);

@@ -80,12 +80,18 @@ class MockRadioBrowserHtttpService extends _i1.Mock
   _i5.Future<_i6.Uint8List> get(
     String? path, {
     String? uuids,
+    String? name,
+    String? country,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [path],
-          {#uuids: uuids},
+          {
+            #uuids: uuids,
+            #name: name,
+            #country: country,
+          },
         ),
         returnValue: _i5.Future<_i6.Uint8List>.value(_i6.Uint8List(0)),
         returnValueForMissingStub:

@@ -87,4 +87,23 @@ void main() {
       expect(result, isA<Left>());
     });
   });
+
+  group('searchRadios', () {
+    test('should return a Right<List<RadioEntity> if successful', () async {
+      when(mockHttpService.get(any, name: 'text', country: 'Spain')).thenAnswer(
+          (_) => Future.value(utf8.encode(json.encode([stubbedRadioJson]))));
+
+      final result = await radioBrowserRepository.searchRadios('text', 'Spain');
+
+      expect(result, isA<Right>());
+    });
+
+    test('should return a Left<RadioFailure> if unsuccessful', () async {
+      when(mockHttpService.get(any)).thenThrow(Exception('error'));
+
+      final result = await radioBrowserRepository.searchRadios('text', 'Spain');
+
+      expect(result, isA<Left>());
+    });
+  });
 }
