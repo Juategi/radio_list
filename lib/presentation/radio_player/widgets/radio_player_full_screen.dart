@@ -18,77 +18,87 @@ class RadioPlayerFullScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      onPopInvoked: (didPop) {
-        if (!didPop) {
-          radioPlayerCubit.toMinimized();
-        }
-      },
-      canPop: false,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FavoriteButton(
-                  radioId: radioEntity!.id,
-                ),
-                IconButton(
-                  onPressed: () {
-                    radioAudioCubit.stop();
-                    radioPlayerCubit.hide();
-                  },
-                  icon: const Icon(
-                    Icons.close,
-                    size: 30,
-                    color: Colors.white,
+    return FutureBuilder(
+        //To avoid a overflow error while building
+        future: Future.delayed(const Duration(milliseconds: 400)),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: SizedBox(),
+            );
+          }
+          return PopScope(
+            onPopInvoked: (didPop) {
+              if (!didPop) {
+                radioPlayerCubit.toMinimized();
+              }
+            },
+            canPop: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FavoriteButton(
+                        radioId: radioEntity!.id,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          radioAudioCubit.stop();
+                          radioPlayerCubit.hide();
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-            ImagePulseAnimation(favicon: radioEntity?.favicon ?? ''),
-            TextScrollWidget(
-              text: radioEntity?.name ?? '',
-              widthOffset: 0.8,
-              textStyle: Theme.of(context).textTheme.headlineLarge,
-            ),
-            TextScrollWidget(
-              text: StringUtils.tagsFromList(radioEntity!.tags),
-              widthOffset: 0.8,
-              textStyle: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    radioAudioCubit.volumeDown();
-                  },
-                  icon: Icon(
-                    Icons.remove_rounded,
-                    size: 40,
-                    color: Theme.of(context).primaryColor,
+                  ImagePulseAnimation(favicon: radioEntity?.favicon ?? ''),
+                  TextScrollWidget(
+                    text: radioEntity?.name ?? '',
+                    widthOffset: 0.8,
+                    textStyle: Theme.of(context).textTheme.headlineLarge,
                   ),
-                ),
-                PlayPauseButton(radioEntity: radioEntity),
-                IconButton(
-                  onPressed: () {
-                    radioAudioCubit.volumeUp();
-                  },
-                  icon: Icon(
-                    Icons.add_rounded,
-                    size: 40,
-                    color: Theme.of(context).primaryColor,
+                  TextScrollWidget(
+                    text: StringUtils.tagsFromList(radioEntity!.tags),
+                    widthOffset: 0.8,
+                    textStyle: Theme.of(context).textTheme.bodyMedium,
                   ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          radioAudioCubit.volumeDown();
+                        },
+                        icon: Icon(
+                          Icons.remove_rounded,
+                          size: 40,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      PlayPauseButton(radioEntity: radioEntity),
+                      IconButton(
+                        onPressed: () {
+                          radioAudioCubit.volumeUp();
+                        },
+                        icon: Icon(
+                          Icons.add_rounded,
+                          size: 40,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
