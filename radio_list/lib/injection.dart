@@ -23,6 +23,7 @@ class Injection {
     RadioPlayerCubit radioPlayerCubit = RadioPlayerCubit();
     RadioAudioCubit radioAudioCubit = RadioAudioCubit(audioPlayer);
     FavoritesCubit favoritesCubit = FavoritesCubit(radioRepository);
+
     GetIt.I.registerSingleton<RadioRepository>(radioRepository);
     GetIt.I.registerSingleton<RadioListCubit>(radioCubit);
     GetIt.I.registerSingleton<RadioPlayerCubit>(radioPlayerCubit);

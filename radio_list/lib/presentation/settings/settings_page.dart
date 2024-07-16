@@ -21,8 +21,12 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
-        title: Text(StringKeys.settings,
-            style: Theme.of(context).textTheme.headlineMedium),
+        title: Text(
+          StringKeys.settings,
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.white,
+              ),
+        ),
         flexibleSpace: Container(decoration: getAppBarDecoration(context)),
       ),
       body: SafeArea(

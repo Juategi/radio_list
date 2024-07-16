@@ -33,7 +33,7 @@ final ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   fontFamily: 'Inter',
   brightness: Brightness.dark,
-  cardColor: Colors.black,
+  cardColor: Colors.black54,
   canvasColor: Colors.grey[800],
   primaryColor: Colors.white,
   scaffoldBackgroundColor: Colors.black,

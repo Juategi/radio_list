@@ -16,8 +16,12 @@ class RadioListPage extends StatelessWidget {
         toolbarHeight: 40,
         title: Row(
           children: [
-            Text(StringKeys.hits,
-                style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              StringKeys.hits,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
             const SizedBox(width: 12),
             Image.asset(
               SettingsController.countrySelected.flag,

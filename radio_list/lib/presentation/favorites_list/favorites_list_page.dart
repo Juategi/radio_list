@@ -13,8 +13,12 @@ class FavoritesListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
-        title: Text(StringKeys.favoriteRadios,
-            style: Theme.of(context).textTheme.headlineMedium),
+        title: Text(
+          StringKeys.favoriteRadios,
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Colors.white,
+              ),
+        ),
         flexibleSpace: Container(
           decoration: getAppBarDecoration(context),
         ),
