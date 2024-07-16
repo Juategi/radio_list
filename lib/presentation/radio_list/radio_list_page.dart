@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
 import 'package:radio_list/application/settings/settings_controller.dart';
 import 'package:radio_list/presentation/core/decorations.dart';
 import 'package:radio_list/presentation/radio_list/widgets/radio_tile.dart';
+import 'package:radio_list/presentation/radio_list/widgets/search_field.dart';
 import 'package:radio_list/utils/string_keys.dart';
 
 class RadioListPage extends StatelessWidget {
-  RadioListPage({super.key});
-  final TextEditingController controller = TextEditingController();
-  final RadioListCubit radioListCubit = GetIt.instance<RadioListCubit>();
+  const RadioListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    controller.text = '';
-    radioListCubit.searchRadios('', SettingsController.countrySelected);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
@@ -40,37 +37,7 @@ class RadioListPage extends StatelessWidget {
           preferredSize: const Size.fromHeight(50),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: TextField(
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Colors.white,
-                        ),
-                    controller: controller,
-                    onSubmitted: (value) => radioListCubit.searchRadios(
-                      value,
-                      SettingsController.countrySelected,
-                    ),
-                    decoration: const InputDecoration(
-                      hintText: StringKeys.search,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {
-                    radioListCubit.searchRadios(
-                      controller.text,
-                      SettingsController.countrySelected,
-                    );
-                  },
-                  icon: const Icon(Icons.search, color: Colors.white),
-                ),
-              ],
-            ),
+            child: SearchField(),
           ),
         ),
       ),
