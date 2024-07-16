@@ -30,10 +30,13 @@ class RadioBrowserHtttpService {
       http.Response response = await http.post(uri, headers: headers);
 
       final rawList = json.decode(response.body) as List<dynamic>;
-      if (response.statusCode == 200 && rawList.isNotEmpty) {
+      if (response.statusCode == 200 && (rawList.isNotEmpty)) {
         return response.bodyBytes;
       }
     }
-    throw Exception('Failed to load radios');
+    if (name == null) {
+      throw Exception('Failed to load radios');
+    }
+    return Uint8List(0);
   }
 }

@@ -75,6 +75,9 @@ class RadioBrowserRepositoryImpl implements RadioRepository {
       const path = '/json/stations/search';
       final result =
           await _httpService.get(path, name: name, country: countryCode);
+      if (result.isEmpty) {
+        return const Right([]);
+      }
       final rawList = json.decode(utf8.decode(result)) as List<dynamic>;
       final radios = rawList
           .map((radio) => RadioBrowserDto.fromJson(radio).toDomain())
