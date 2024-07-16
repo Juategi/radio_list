@@ -1,6 +1,0 @@
-# PATH/PATTERN TYPE
-*.gr.dart binary
-*.g.dart binary
-*.config.dart binary
-*.mocks.dart binary
-*.freezed.dart binary

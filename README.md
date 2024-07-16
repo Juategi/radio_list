@@ -1,2 +1,3 @@
 # radio_list
- Radio list from Radio Browser API
+run:
+start ms-settings:developers

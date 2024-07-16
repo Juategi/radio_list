@@ -1,2 +1,6 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# PATH/PATTERN TYPE
+*.gr.dart binary
+*.g.dart binary
+*.config.dart binary
+*.mocks.dart binary
+*.freezed.dart binary
