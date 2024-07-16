@@ -26,7 +26,7 @@ class RadioPlayerFullScreen extends StatelessWidget {
       },
       canPop: false,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

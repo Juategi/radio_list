@@ -50,7 +50,7 @@ class RadioTile extends StatelessWidget {
                 child: Text(
                   StringUtils.tagsFromList(radioEntity.tags),
                   style: Theme.of(context).textTheme.bodySmall,
-                  maxLines: 3,
+                  maxLines: 2,
                   overflow: TextOverflow.fade,
                   textAlign: TextAlign.center,
                 ),
