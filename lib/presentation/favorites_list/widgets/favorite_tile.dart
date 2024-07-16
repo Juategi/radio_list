@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_list/application/radio_audio/radio_audio_cubit.dart';
 import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
+import 'package:radio_list/presentation/radio_player/widgets/favorite_button.dart';
 import 'package:radio_list/presentation/widgets/radio_image.dart';
 import 'package:radio_list/utils/string_utils.dart';
 
@@ -64,18 +65,10 @@ class FavoriteTile extends StatelessWidget {
                   ),
                   const Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(top: 12.0),
-                    child: IgnorePointer(
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.play_arrow_rounded,
-                          color: Colors.green,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(top: 12.0),
+                      child: FavoriteButton(
+                        radioId: radioEntity.id,
+                      )),
                 ],
               ),
             ),
