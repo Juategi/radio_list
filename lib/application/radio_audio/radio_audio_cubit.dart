@@ -10,8 +10,12 @@ class RadioAudioCubit extends Cubit<RadioAudioState> {
   final AudioPlayer player;
 
   void play(String url) {
-    player.play(UrlSource(url));
-    emit(const RadioAudioState.on());
+    try {
+      player.play(UrlSource(url));
+      emit(const RadioAudioState.on());
+    } catch (e) {
+      emit(const RadioAudioState.off());
+    }
   }
 
   void pause() {
