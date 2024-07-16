@@ -43,11 +43,12 @@ class RadioPlayerFullScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is RadioAudioOff) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 17),
+                  padding: const EdgeInsets.all(50),
                   child: RadioImage(
                     favicon: radioEntity?.favicon ?? '',
                     width: 150,
                     withBackground: true,
+                    circular: true,
                   ),
                 );
               }
@@ -69,6 +70,7 @@ class RadioPlayerFullScreen extends StatelessWidget {
                           favicon: radioEntity?.favicon ?? '',
                           width: 150,
                           withBackground: true,
+                          circular: true,
                         ),
                       ),
                       full: (full) => Pulsator(
@@ -83,6 +85,7 @@ class RadioPlayerFullScreen extends StatelessWidget {
                           favicon: radioEntity?.favicon ?? '',
                           width: 150,
                           withBackground: true,
+                          circular: true,
                         ),
                       ),
                       hidden: (_) => const SizedBox(),
@@ -93,13 +96,34 @@ class RadioPlayerFullScreen extends StatelessWidget {
             },
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
+              Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.8,
+                ),
                 child: TextScroll(
-                  "${radioEntity?.name ?? ''}   ${StringUtils.tagsFromList(radioEntity!.tags)}  ",
+                  radioEntity?.name ?? '',
                   style: Theme.of(context).textTheme.headlineLarge,
+                  mode: TextScrollMode.endless,
+                  velocity: const Velocity(pixelsPerSecond: Offset(50, 0)),
+                  delayBefore: const Duration(milliseconds: 2000),
+                  pauseBetween: const Duration(milliseconds: 2000),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.8,
+                ),
+                child: TextScroll(
+                  "${StringUtils.tagsFromList(radioEntity!.tags)}  ",
+                  style: Theme.of(context).textTheme.bodyMedium,
                   mode: TextScrollMode.endless,
                   velocity: const Velocity(pixelsPerSecond: Offset(50, 0)),
                   delayBefore: const Duration(milliseconds: 2000),
