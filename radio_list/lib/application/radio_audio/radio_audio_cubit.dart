@@ -23,4 +23,12 @@ class RadioAudioCubit extends Cubit<RadioAudioState> {
     player.stop();
     emit(const RadioAudioState.off());
   }
+
+  void volumeUp() {
+    player.setVolume(player.volume + 0.1);
+  }
+
+  void volumeDown() {
+    player.setVolume(player.volume - 0.1);
+  }
 }

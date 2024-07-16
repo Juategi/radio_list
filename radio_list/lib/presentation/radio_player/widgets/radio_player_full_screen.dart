@@ -7,6 +7,7 @@ import 'package:radio_list/domain/radio/radio_entity.dart';
 import 'package:radio_list/presentation/widgets/radio_image.dart';
 import 'package:radio_list/utils/string_utils.dart';
 import 'package:text_scroll/text_scroll.dart';
+import 'package:pulsator/pulsator.dart';
 
 class RadioPlayerFullScreen extends StatelessWidget {
   RadioPlayerFullScreen({super.key, this.radioEntity});
@@ -20,7 +21,7 @@ class RadioPlayerFullScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -38,15 +39,61 @@ class RadioPlayerFullScreen extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 20),
-          RadioImage(
-            favicon: radioEntity?.favicon ?? '',
-            width: 150,
-            withBackground: true,
+          BlocBuilder<RadioAudioCubit, RadioAudioState>(
+            builder: (context, state) {
+              if (state is RadioAudioOff) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 17),
+                  child: RadioImage(
+                    favicon: radioEntity?.favicon ?? '',
+                    width: 150,
+                    withBackground: true,
+                  ),
+                );
+              }
+              return SizedBox(
+                width: 250,
+                height: 250,
+                child: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
+                  builder: (context, state) {
+                    return state.map(
+                      minimized: (minimized) => Pulsator(
+                        style: PulseStyle(color: minimized.mainColor!),
+                        count: 5,
+                        duration: const Duration(seconds: 4),
+                        repeat: 0,
+                        startFromScratch: false,
+                        autoStart: true,
+                        fit: PulseFit.contain,
+                        child: RadioImage(
+                          favicon: radioEntity?.favicon ?? '',
+                          width: 150,
+                          withBackground: true,
+                        ),
+                      ),
+                      full: (full) => Pulsator(
+                        style: PulseStyle(color: full.mainColor!),
+                        count: 5,
+                        duration: const Duration(seconds: 4),
+                        repeat: 0,
+                        startFromScratch: false,
+                        autoStart: true,
+                        fit: PulseFit.contain,
+                        child: RadioImage(
+                          favicon: radioEntity?.favicon ?? '',
+                          width: 150,
+                          withBackground: true,
+                        ),
+                      ),
+                      hidden: (_) => const SizedBox(),
+                    );
+                  },
+                ),
+              );
+            },
           ),
-          const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.7,
@@ -63,33 +110,58 @@ class RadioPlayerFullScreen extends StatelessWidget {
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              BlocBuilder<RadioAudioCubit, RadioAudioState>(
-                builder: (context, state) {
-                  return state.map(
-                    off: (_) => IconButton(
-                      onPressed: () {
-                        radioAudioCubit.play(radioEntity?.urlResolved ?? '');
-                      },
-                      icon: Icon(
-                        Icons.play_arrow_rounded,
-                        size: 40,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    on: (_) => IconButton(
-                      onPressed: () {
-                        radioAudioCubit.pause();
-                      },
-                      icon: Icon(
-                        Icons.pause_rounded,
-                        size: 40,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  );
+              IconButton(
+                onPressed: () {
+                  radioAudioCubit.volumeDown();
                 },
+                icon: Icon(
+                  Icons.remove_rounded,
+                  size: 40,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              Row(
+                children: [
+                  BlocBuilder<RadioAudioCubit, RadioAudioState>(
+                    builder: (context, state) {
+                      return state.map(
+                        off: (_) => IconButton(
+                          onPressed: () {
+                            radioAudioCubit
+                                .play(radioEntity?.urlResolved ?? '');
+                          },
+                          icon: Icon(
+                            Icons.play_arrow_rounded,
+                            size: 40,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        on: (_) => IconButton(
+                          onPressed: () {
+                            radioAudioCubit.pause();
+                          },
+                          icon: Icon(
+                            Icons.pause_rounded,
+                            size: 40,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+              IconButton(
+                onPressed: () {
+                  radioAudioCubit.volumeUp();
+                },
+                icon: Icon(
+                  Icons.add_rounded,
+                  size: 40,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           )

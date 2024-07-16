@@ -20,6 +20,7 @@ dependencies:
   audioplayers: ^6.0.0
   palette_generator: ^0.3.3+4
   text_scroll: ^0.2.0
+  pulsator: ^1.0.0+2
   
 dev_dependencies:
   flutter_test:
