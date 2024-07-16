@@ -14,6 +14,7 @@ class RadioListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.text = '';
+    radioListCubit.searchRadios('', SettingsController.countrySelected);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
