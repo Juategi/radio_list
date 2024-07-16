@@ -30,12 +30,17 @@ class FavoritesListPage extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                loaded: (radios) => ListView.builder(
+                loaded: (radios) => ListView.separated(
                   itemCount: radios.radios.length,
                   itemBuilder: (context, index) {
                     final radio = radios.radios[index];
                     return FavoriteTile(radioEntity: radio);
                   },
+                  separatorBuilder: (context, index) => Divider(
+                    color: Theme.of(context).appBarTheme.backgroundColor!,
+                    height: 8,
+                    thickness: 1,
+                  ),
                 ),
                 error: (error) => Center(
                   child: Text(error.error),

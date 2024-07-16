@@ -38,6 +38,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               const SizedBox(height: 15),
               DropdownButton<Country>(
+                dropdownColor: Theme.of(context).appBarTheme.backgroundColor!,
+                style: Theme.of(context).textTheme.bodyMedium,
                 underline: Container(),
                 value: SettingsController.countrySelected,
                 onChanged: (Country? newValue) {

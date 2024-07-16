@@ -16,53 +16,71 @@ class FavoriteTile extends StatelessWidget {
         BlocProvider.of<RadioPlayerCubit>(context).selectRadio(radioEntity);
         BlocProvider.of<RadioAudioCubit>(context).play(radioEntity.urlResolved);
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              RadioImage(
-                favicon: radioEntity.favicon ?? '',
-                width: 75,
-              ),
-              const SizedBox(width: 15),
-              Column(
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 22),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.5,
-                    ),
-                    child: Text(
-                      radioEntity.name,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      overflow: TextOverflow.fade,
-                      textAlign: TextAlign.start,
-                    ),
+                  RadioImage(
+                    favicon: radioEntity.favicon ?? '',
+                    width: 75,
                   ),
-                  const SizedBox(height: 5),
-                  Container(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.5,
-                    ),
-                    child: Text(
-                      StringUtils.tagsFromList(radioEntity.tags),
-                      style: Theme.of(context).textTheme.bodySmall,
-                      maxLines: 2,
-                      overflow: TextOverflow.fade,
-                      textAlign: TextAlign.start,
+                  const SizedBox(width: 15),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.5,
+                        ),
+                        child: Text(
+                          radioEntity.name,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Container(
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.5,
+                        ),
+                        child: Text(
+                          StringUtils.tagsFromList(radioEntity.tags),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          maxLines: 2,
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: IgnorePointer(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.play_arrow_rounded,
+                          color: Colors.green,
+                          size: 30,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

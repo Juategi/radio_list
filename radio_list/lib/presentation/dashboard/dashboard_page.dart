@@ -32,7 +32,7 @@ class _DashboardPageState extends State<DashboardPage>
       bottomNavigationBar: BottomBarBubble(
         selectedIndex: _tabController.index,
         backgroundColor: Colors.transparent,
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).appBarTheme.backgroundColor!,
         bubbleSize: 0,
         height: 65,
         items: [

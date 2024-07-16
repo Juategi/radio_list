@@ -16,12 +16,16 @@ class RadioListCubit extends Cubit<RadioListState> {
     final result = await _radioRepository.getRadios(country.toString());
     result.fold(
       (error) => emit(const RadioListState.error("error: reload app")),
-      (radios) => emit(RadioListState.loaded(radios
-          .where((radio) =>
-              radio.favicon != null &&
-              radio.favicon!.trim().isNotEmpty &&
-              !radio.favicon!.contains('.svg'))
-          .toList())),
+      (radios) => emit(
+        RadioListState.loaded(
+          radios
+              .where((radio) =>
+                  radio.favicon != null &&
+                  radio.favicon!.trim().isNotEmpty &&
+                  !radio.favicon!.contains('.svg'))
+              .toList(),
+        ),
+      ),
     );
   }
 }
