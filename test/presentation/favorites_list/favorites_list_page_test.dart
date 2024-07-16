@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mockito/mockito.dart';
 import 'package:radio_list/application/favorites/favorites_cubit.dart';
 import 'package:radio_list/domain/radio/radio_failure.dart';
@@ -18,6 +19,11 @@ void main() {
 
   setUp(() {
     favoritesCubit = FavoritesCubit(mockRadioRepository);
+    GetIt.I.registerSingleton<FavoritesCubit>(favoritesCubit);
+  });
+
+  tearDown(() {
+    GetIt.I.unregister<FavoritesCubit>();
   });
 
   setUpAll(() => HttpOverrides.global = null);

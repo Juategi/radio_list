@@ -51,20 +51,20 @@ void main() {
       );
     });
 
-    test('should increase volume by 0.1', () {
+    test('should increase volume by 0.4', () {
       when(mockAudioPlayer.setVolume(any)).thenAnswer((_) => Future.value());
 
       radioAudioCubit.volumeUp();
 
-      verify(mockAudioPlayer.setVolume(0.1));
+      verify(mockAudioPlayer.setVolume(0.4));
     });
 
-    test('should decrease volume by 0.1', () {
+    test('should decrease volume by 0.4', () {
       when(mockAudioPlayer.setVolume(any)).thenAnswer((_) => Future.value());
 
       radioAudioCubit.volumeDown();
 
-      verify(mockAudioPlayer.setVolume(-0.1));
+      verify(mockAudioPlayer.setVolume(-0.4));
     });
   });
 }
