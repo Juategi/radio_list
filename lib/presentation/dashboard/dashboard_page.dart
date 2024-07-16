@@ -1,6 +1,7 @@
 import 'package:bottom_bar_matu/bottom_bar_matu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:radio_list/presentation/favorites_list/favorites_list_page.dart';
 import 'package:radio_list/presentation/radio_list/radio_list_page.dart';
 import 'package:radio_list/presentation/radio_player/radio_player.dart';
@@ -18,6 +19,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage>
     with TickerProviderStateMixin {
+  final RadioPlayerCubit radioPlayerCubit = GetIt.instance<RadioPlayerCubit>();
   late TabController _tabController;
   @override
   void initState() {
@@ -56,6 +58,12 @@ class _DashboardPageState extends State<DashboardPage>
           ),
         ],
         onSelect: (int value) {
+          radioPlayerCubit.state.maybeWhen(
+            full: (_, __) {
+              radioPlayerCubit.toMinimized();
+            },
+            orElse: () {},
+          );
           _tabController.index = value;
         },
       ),
