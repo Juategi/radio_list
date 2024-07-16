@@ -1,3 +1,3 @@
 # radio_list
-
-A new Flutter project.
+run:
+start ms-settings:developers

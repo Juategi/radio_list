@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:radio_list/application/radio_audio/radio_audio_cubit.dart';
 import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
 import 'package:radio_list/presentation/widgets/radio_image.dart';
@@ -14,6 +15,7 @@ class RadioTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         BlocProvider.of<RadioPlayerCubit>(context).selectRadio(radioEntity);
+        BlocProvider.of<RadioAudioCubit>(context).play(radioEntity.urlResolved);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -33,7 +35,7 @@ class RadioTile extends StatelessWidget {
                   maxWidth: width,
                 ),
                 child: Text(
-                  radioEntity.name ?? '',
+                  radioEntity.name,
                   style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 2,
                   overflow: TextOverflow.fade,

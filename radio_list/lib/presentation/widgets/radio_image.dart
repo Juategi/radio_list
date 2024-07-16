@@ -13,7 +13,7 @@ class RadioImage extends StatelessWidget {
   final bool withBackground;
   @override
   Widget build(BuildContext context) {
-    return Platform.environment.containsKey('FLUTTER_TEST')
+    return Platform.environment.containsKey('FLUTTER_TEST') || favicon.isEmpty
         ? const SizedBox()
         : Container(
             width: width,

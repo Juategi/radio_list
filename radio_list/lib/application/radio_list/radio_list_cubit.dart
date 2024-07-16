@@ -17,7 +17,9 @@ class RadioListCubit extends Cubit<RadioListState> {
       (error) => emit(RadioListState.error(error.message)),
       (radios) => emit(RadioListState.loaded(radios
           .where((radio) =>
-              radio.favicon != null && !radio.favicon!.contains('.svg'))
+              radio.favicon != null &&
+              radio.favicon!.trim().isNotEmpty &&
+              !radio.favicon!.contains('.svg'))
           .toList())),
     );
   }

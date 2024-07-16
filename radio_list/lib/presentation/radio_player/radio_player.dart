@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
-import 'package:radio_list/presentation/widgets/radio_image.dart';
+import 'package:radio_list/presentation/radio_player/widgets/radio_player_bar.dart';
+import 'package:radio_list/presentation/radio_player/widgets/radio_player_full_screen.dart';
+import 'package:radio_list/utils/color_utils.dart';
 
 class RadioPlayer extends StatelessWidget {
   RadioPlayer({super.key});
 
   final RadioPlayerCubit radioPlayerCubit = GetIt.instance<RadioPlayerCubit>();
 
+  // Extract the main color from the radio favicon
+  Future<void> extractMainColor(RadioEntity? radioEntity) async {
+    Color color = await ColorExtractor.getMainColor(NetworkImage(
+      radioEntity?.favicon ?? '',
+    ));
+    radioPlayerCubit.setColor(color);
+  }
+
+  // Toggle the radio player sheet
   void toggleSheet() {
     radioPlayerCubit.state.maybeWhen(
-      full: (_) {
+      full: (_, __) {
         radioPlayerCubit.toMinimized();
       },
-      minimized: (_) {
+      minimized: (_, __) {
         radioPlayerCubit.toFullScreen();
       },
       hidden: () {
@@ -27,102 +39,61 @@ class RadioPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isExpanded = radioPlayerCubit.state.maybeWhen(
-      full: (_) => true,
-      minimized: (_) => false,
+      full: (_, __) => true,
+      minimized: (_, __) => false,
       hidden: () => false,
       orElse: () => false,
     );
     RadioEntity? radioEntity = radioPlayerCubit.state.maybeWhen(
-      full: (radio) => radio,
-      minimized: (radio) => radio,
+      full: (radio, _) => radio,
+      minimized: (radio, _) => radio,
       hidden: () => null,
       orElse: () => null,
     );
-    return Stack(
-      children: [
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: GestureDetector(
-            onTap: toggleSheet,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 400),
-              height: isExpanded ? MediaQuery.of(context).size.height : 70,
-              decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(8),
-                ),
-              ),
-              child: isExpanded
-                  ? const RadioPlayerFullScreen()
-                  : RadioPlayerBar(
-                      radioEntity: radioEntity,
-                    ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class RadioPlayerBar extends StatelessWidget {
-  const RadioPlayerBar({super.key, this.radioEntity});
-  final RadioEntity? radioEntity;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
+    extractMainColor(radioEntity);
+    return BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
+        builder: (context, state) {
+      Color mainColor = state.map(
+        hidden: (_) => Theme.of(context).canvasColor,
+        minimized: (state) => state.mainColor ?? Theme.of(context).canvasColor,
+        full: (state) => state.mainColor ?? Theme.of(context).canvasColor,
+      );
+      return Stack(
         children: [
-          RadioImage(
-            favicon: radioEntity?.favicon ?? '',
-            width: 45,
-            withBackground: true,
-          ),
-          const SizedBox(width: 8),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 5),
-              Text(
-                radioEntity?.name ?? '',
-                style: Theme.of(context).textTheme.headlineSmall,
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: GestureDetector(
+              onTap: toggleSheet,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 400),
+                height: isExpanded ? MediaQuery.of(context).size.height : 75,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                      mainColor,
+                      Colors.black,
+                    ],
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                child: isExpanded
+                    ? RadioPlayerFullScreen(
+                        radioEntity: radioEntity,
+                      )
+                    : RadioPlayerBar(
+                        radioEntity: radioEntity,
+                      ),
               ),
-              const SizedBox(height: 5),
-              Text(
-                'Escuchando...',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
-          ),
-          const Spacer(),
-          IgnorePointer(
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_upward_rounded),
             ),
-          ),
-          const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.play_arrow_rounded, size: 40),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class RadioPlayerFullScreen extends StatelessWidget {
-  const RadioPlayerFullScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+      );
+    });
   }
 }

@@ -19,22 +19,23 @@ mixin _$RadioPlayerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() hidden,
-    required TResult Function(RadioEntity radioSelected) minimized,
-    required TResult Function(RadioEntity radioSelected) full,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor)
+        minimized,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor) full,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? hidden,
-    TResult? Function(RadioEntity radioSelected)? minimized,
-    TResult? Function(RadioEntity radioSelected)? full,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? full,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? hidden,
-    TResult Function(RadioEntity radioSelected)? minimized,
-    TResult Function(RadioEntity radioSelected)? full,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? full,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,8 +120,9 @@ class _$RadioPlayerHiddenImpl implements RadioPlayerHidden {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() hidden,
-    required TResult Function(RadioEntity radioSelected) minimized,
-    required TResult Function(RadioEntity radioSelected) full,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor)
+        minimized,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor) full,
   }) {
     return hidden();
   }
@@ -129,8 +131,8 @@ class _$RadioPlayerHiddenImpl implements RadioPlayerHidden {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? hidden,
-    TResult? Function(RadioEntity radioSelected)? minimized,
-    TResult? Function(RadioEntity radioSelected)? full,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? full,
   }) {
     return hidden?.call();
   }
@@ -139,8 +141,8 @@ class _$RadioPlayerHiddenImpl implements RadioPlayerHidden {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? hidden,
-    TResult Function(RadioEntity radioSelected)? minimized,
-    TResult Function(RadioEntity radioSelected)? full,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? full,
     required TResult orElse(),
   }) {
     if (hidden != null) {
@@ -194,7 +196,7 @@ abstract class _$$RadioPlayerMinimizedImplCopyWith<$Res> {
           $Res Function(_$RadioPlayerMinimizedImpl) then) =
       __$$RadioPlayerMinimizedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({RadioEntity radioSelected});
+  $Res call({RadioEntity radioSelected, Color? mainColor});
 }
 
 /// @nodoc
@@ -209,12 +211,17 @@ class __$$RadioPlayerMinimizedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? radioSelected = null,
+    Object? mainColor = freezed,
   }) {
     return _then(_$RadioPlayerMinimizedImpl(
       null == radioSelected
           ? _value.radioSelected
           : radioSelected // ignore: cast_nullable_to_non_nullable
               as RadioEntity,
+      freezed == mainColor
+          ? _value.mainColor
+          : mainColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ));
   }
 }
@@ -222,14 +229,16 @@ class __$$RadioPlayerMinimizedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RadioPlayerMinimizedImpl implements RadioPlayerMinimized {
-  const _$RadioPlayerMinimizedImpl(this.radioSelected);
+  const _$RadioPlayerMinimizedImpl(this.radioSelected, this.mainColor);
 
   @override
   final RadioEntity radioSelected;
+  @override
+  final Color? mainColor;
 
   @override
   String toString() {
-    return 'RadioPlayerState.minimized(radioSelected: $radioSelected)';
+    return 'RadioPlayerState.minimized(radioSelected: $radioSelected, mainColor: $mainColor)';
   }
 
   @override
@@ -238,11 +247,13 @@ class _$RadioPlayerMinimizedImpl implements RadioPlayerMinimized {
         (other.runtimeType == runtimeType &&
             other is _$RadioPlayerMinimizedImpl &&
             (identical(other.radioSelected, radioSelected) ||
-                other.radioSelected == radioSelected));
+                other.radioSelected == radioSelected) &&
+            (identical(other.mainColor, mainColor) ||
+                other.mainColor == mainColor));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, radioSelected);
+  int get hashCode => Object.hash(runtimeType, radioSelected, mainColor);
 
   @JsonKey(ignore: true)
   @override
@@ -256,32 +267,33 @@ class _$RadioPlayerMinimizedImpl implements RadioPlayerMinimized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() hidden,
-    required TResult Function(RadioEntity radioSelected) minimized,
-    required TResult Function(RadioEntity radioSelected) full,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor)
+        minimized,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor) full,
   }) {
-    return minimized(radioSelected);
+    return minimized(radioSelected, mainColor);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? hidden,
-    TResult? Function(RadioEntity radioSelected)? minimized,
-    TResult? Function(RadioEntity radioSelected)? full,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? full,
   }) {
-    return minimized?.call(radioSelected);
+    return minimized?.call(radioSelected, mainColor);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? hidden,
-    TResult Function(RadioEntity radioSelected)? minimized,
-    TResult Function(RadioEntity radioSelected)? full,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? full,
     required TResult orElse(),
   }) {
     if (minimized != null) {
-      return minimized(radioSelected);
+      return minimized(radioSelected, mainColor);
     }
     return orElse();
   }
@@ -322,10 +334,12 @@ class _$RadioPlayerMinimizedImpl implements RadioPlayerMinimized {
 }
 
 abstract class RadioPlayerMinimized implements RadioPlayerState {
-  const factory RadioPlayerMinimized(final RadioEntity radioSelected) =
+  const factory RadioPlayerMinimized(
+          final RadioEntity radioSelected, final Color? mainColor) =
       _$RadioPlayerMinimizedImpl;
 
   RadioEntity get radioSelected;
+  Color? get mainColor;
   @JsonKey(ignore: true)
   _$$RadioPlayerMinimizedImplCopyWith<_$RadioPlayerMinimizedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -337,7 +351,7 @@ abstract class _$$RadioPlayerFullImplCopyWith<$Res> {
           $Res Function(_$RadioPlayerFullImpl) then) =
       __$$RadioPlayerFullImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({RadioEntity radioSelected});
+  $Res call({RadioEntity radioSelected, Color? mainColor});
 }
 
 /// @nodoc
@@ -352,12 +366,17 @@ class __$$RadioPlayerFullImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? radioSelected = null,
+    Object? mainColor = freezed,
   }) {
     return _then(_$RadioPlayerFullImpl(
       null == radioSelected
           ? _value.radioSelected
           : radioSelected // ignore: cast_nullable_to_non_nullable
               as RadioEntity,
+      freezed == mainColor
+          ? _value.mainColor
+          : mainColor // ignore: cast_nullable_to_non_nullable
+              as Color?,
     ));
   }
 }
@@ -365,14 +384,16 @@ class __$$RadioPlayerFullImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RadioPlayerFullImpl implements RadioPlayerFull {
-  const _$RadioPlayerFullImpl(this.radioSelected);
+  const _$RadioPlayerFullImpl(this.radioSelected, this.mainColor);
 
   @override
   final RadioEntity radioSelected;
+  @override
+  final Color? mainColor;
 
   @override
   String toString() {
-    return 'RadioPlayerState.full(radioSelected: $radioSelected)';
+    return 'RadioPlayerState.full(radioSelected: $radioSelected, mainColor: $mainColor)';
   }
 
   @override
@@ -381,11 +402,13 @@ class _$RadioPlayerFullImpl implements RadioPlayerFull {
         (other.runtimeType == runtimeType &&
             other is _$RadioPlayerFullImpl &&
             (identical(other.radioSelected, radioSelected) ||
-                other.radioSelected == radioSelected));
+                other.radioSelected == radioSelected) &&
+            (identical(other.mainColor, mainColor) ||
+                other.mainColor == mainColor));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, radioSelected);
+  int get hashCode => Object.hash(runtimeType, radioSelected, mainColor);
 
   @JsonKey(ignore: true)
   @override
@@ -398,32 +421,33 @@ class _$RadioPlayerFullImpl implements RadioPlayerFull {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() hidden,
-    required TResult Function(RadioEntity radioSelected) minimized,
-    required TResult Function(RadioEntity radioSelected) full,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor)
+        minimized,
+    required TResult Function(RadioEntity radioSelected, Color? mainColor) full,
   }) {
-    return full(radioSelected);
+    return full(radioSelected, mainColor);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? hidden,
-    TResult? Function(RadioEntity radioSelected)? minimized,
-    TResult? Function(RadioEntity radioSelected)? full,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult? Function(RadioEntity radioSelected, Color? mainColor)? full,
   }) {
-    return full?.call(radioSelected);
+    return full?.call(radioSelected, mainColor);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? hidden,
-    TResult Function(RadioEntity radioSelected)? minimized,
-    TResult Function(RadioEntity radioSelected)? full,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? minimized,
+    TResult Function(RadioEntity radioSelected, Color? mainColor)? full,
     required TResult orElse(),
   }) {
     if (full != null) {
-      return full(radioSelected);
+      return full(radioSelected, mainColor);
     }
     return orElse();
   }
@@ -464,10 +488,12 @@ class _$RadioPlayerFullImpl implements RadioPlayerFull {
 }
 
 abstract class RadioPlayerFull implements RadioPlayerState {
-  const factory RadioPlayerFull(final RadioEntity radioSelected) =
+  const factory RadioPlayerFull(
+          final RadioEntity radioSelected, final Color? mainColor) =
       _$RadioPlayerFullImpl;
 
   RadioEntity get radioSelected;
+  Color? get mainColor;
   @JsonKey(ignore: true)
   _$$RadioPlayerFullImplCopyWith<_$RadioPlayerFullImpl> get copyWith =>
       throw _privateConstructorUsedError;

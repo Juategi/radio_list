@@ -3,4 +3,5 @@ class StringKeys {
   static const favorites = 'Favoritos';
   static const settings = 'Ajustes';
   static const hits = 'Exitos';
+  static const listening = 'Escuchando...';
 }

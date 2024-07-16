@@ -74,8 +74,8 @@ class _DashboardPageState extends State<DashboardPage>
             child: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
                 builder: (context, state) {
               return state.maybeWhen(
-                minimized: (radioSelected) => RadioPlayer(),
-                full: (radioSelected) => RadioPlayer(),
+                minimized: (radioSelected, _) => RadioPlayer(),
+                full: (radioSelected, _) => RadioPlayer(),
                 orElse: () => const SizedBox(),
               );
             }),

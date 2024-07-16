@@ -126,10 +126,10 @@ class RadioBrowserDto {
   RadioEntity toDomain() {
     return RadioEntity(
       id: stationUuid,
-      name: name,
-      urlResolved: urlResolved,
+      name: name ?? '',
+      urlResolved: urlResolved ?? '',
       homepage: homepage,
-      favicon: favicon,
+      favicon: favicon ?? '',
       tags: tags,
     );
   }

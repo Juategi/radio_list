@@ -17,12 +17,13 @@ class RadioListPage extends StatelessWidget {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: <Color>[
-                  Theme.of(context).appBarTheme.backgroundColor!,
-                  Colors.black54,
-                ]),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[
+                Theme.of(context).appBarTheme.backgroundColor!,
+                Colors.black54,
+              ],
+            ),
           ),
         ),
       ),
@@ -40,7 +41,7 @@ class RadioListPage extends StatelessWidget {
                 loaded: (radios) => GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 0.75,
+                    childAspectRatio: 0.7,
                   ),
                   itemCount: radios.radios.length,
                   itemBuilder: (context, index) {
