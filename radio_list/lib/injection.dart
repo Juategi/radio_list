@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radio_list/application/favorites/favorites_cubit.dart';
 import 'package:radio_list/application/radio_audio/radio_audio_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Injection {
   static Future<void> setup() async {
+    AudioPlayer audioPlayer = AudioPlayer();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     RadioBrowserHtttpService httpService = RadioBrowserHtttpService();
     SharedPreferencesService sharedPreferencesService =
@@ -19,7 +21,7 @@ class Injection {
         RadioBrowserRepositoryImpl(httpService, sharedPreferencesService);
     RadioListCubit radioCubit = RadioListCubit(radioRepository);
     RadioPlayerCubit radioPlayerCubit = RadioPlayerCubit();
-    RadioAudioCubit radioAudioCubit = RadioAudioCubit();
+    RadioAudioCubit radioAudioCubit = RadioAudioCubit(audioPlayer);
     FavoritesCubit favoritesCubit = FavoritesCubit(radioRepository);
     GetIt.I.registerSingleton<RadioRepository>(radioRepository);
     GetIt.I.registerSingleton<RadioListCubit>(radioCubit);

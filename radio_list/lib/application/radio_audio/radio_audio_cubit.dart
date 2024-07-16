@@ -6,8 +6,8 @@ part 'radio_audio_state.dart';
 part 'radio_audio_cubit.freezed.dart';
 
 class RadioAudioCubit extends Cubit<RadioAudioState> {
-  RadioAudioCubit() : super(const RadioAudioState.off());
-  final player = AudioPlayer();
+  RadioAudioCubit(this.player) : super(const RadioAudioState.off());
+  final AudioPlayer player;
 
   void play(String url) {
     player.play(UrlSource(url));

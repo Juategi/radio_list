@@ -8,7 +8,7 @@ import 'package:radio_list/domain/radio/radio_failure.dart';
 import 'package:radio_list/domain/radio/radio_repository.dart';
 
 import '../../helpers/stubs/stubbed_radio.dart';
-import 'radio_cubit_test.mocks.dart';
+import 'radio_list_cubit_test.mocks.dart';
 
 @GenerateNiceMocks([
   MockSpec<RadioRepository>(),
@@ -25,7 +25,9 @@ void main() {
     test('should emit a RadioLoaded state when succesful', () async {
       when(mockRadioRepository.getRadios(any))
           .thenAnswer((_) => Future.value(Right([stubbedRadioEntity])));
+
       await radioCubit.getRadios(Country.spain);
+
       expect(
         radioCubit.state,
         RadioListState.loaded([stubbedRadioEntity]),
@@ -35,7 +37,9 @@ void main() {
     test('should emit a RadioError state when unsuccesful', () async {
       when(mockRadioRepository.getRadios(any))
           .thenAnswer((_) => Future.value(Left(RadioFailure('error'))));
+
       await radioCubit.getRadios(Country.spain);
+
       expect(
         radioCubit.state,
         const RadioListState.error("error: reload app"),

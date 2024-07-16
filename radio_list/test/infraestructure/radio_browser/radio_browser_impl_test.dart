@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:radio_list/domain/radio/radio_repository.dart';
 import 'package:radio_list/infraestructure/radio_browser/core/radio_browser_http_service.dart';
 import 'package:radio_list/infraestructure/radio_browser/core/shared_preferences_service.dart';
 import 'package:radio_list/infraestructure/radio_browser/radio_browser_repository_impl.dart';
@@ -23,26 +21,21 @@ void main() {
   final radioBrowserRepository =
       RadioBrowserRepositoryImpl(mockHttpService, mocSharedPreferencesService);
 
-  setUp(() {
-    GetIt.instance.registerSingleton<RadioRepository>(radioBrowserRepository);
-  });
-
-  tearDown(() {
-    GetIt.instance.unregister<RadioRepository>();
-  });
-
   group('getRadios', () {
     test('should return a Right<List<RadioEntity> if successful', () async {
       when(mockHttpService.get(any, uuids: null)).thenAnswer(
           (_) => Future.value(utf8.encode(json.encode([stubbedRadioJson]))));
 
       final result = await radioBrowserRepository.getRadios('Spain');
+
       expect(result, isA<Right>());
     });
 
     test('should return a Left<RadioFailure> if unsuccessful', () async {
       when(mockHttpService.get(any, uuids: null)).thenThrow(Exception('error'));
+
       final result = await radioBrowserRepository.getRadios('Spain');
+
       expect(result, isA<Left>());
     });
   });
@@ -53,7 +46,9 @@ void main() {
           (_) => Future.value(utf8.encode(json.encode([stubbedRadioJson]))));
       when(mocSharedPreferencesService.getList(any))
           .thenAnswer((_) => Future.value(['a', 'b']));
+
       final result = await radioBrowserRepository.getFavoriteRadios();
+
       expect(result, isA<Right>());
     });
 
@@ -62,7 +57,9 @@ void main() {
           .thenThrow(Exception('error'));
       when(mocSharedPreferencesService.getList(any))
           .thenAnswer((_) => Future.value(['a', 'b']));
+
       final result = await radioBrowserRepository.getFavoriteRadios();
+
       expect(result, isA<Left>());
     });
   });
@@ -73,7 +70,9 @@ void main() {
           .thenAnswer((_) => Future.value(['a', 'b']));
       when(mocSharedPreferencesService.saveList(any, any))
           .thenAnswer((_) => Future.value());
+
       final result = await radioBrowserRepository.toggleFavoriteRadio('a');
+
       expect(result, isA<Right>());
     });
 
@@ -82,7 +81,9 @@ void main() {
           .thenAnswer((_) => Future.value(['a', 'b']));
       when(mocSharedPreferencesService.saveList(any, any))
           .thenThrow(Exception('error'));
+
       final result = await radioBrowserRepository.toggleFavoriteRadio('b');
+
       expect(result, isA<Left>());
     });
   });
