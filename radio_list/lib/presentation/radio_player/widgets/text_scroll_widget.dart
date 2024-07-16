@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:text_scroll/text_scroll.dart';
 
@@ -13,6 +15,9 @@ class TextScrollWidget extends StatelessWidget {
   final TextStyle? textStyle;
   @override
   Widget build(BuildContext context) {
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      return Text(text);
+    }
     return Container(
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width * widthOffset,

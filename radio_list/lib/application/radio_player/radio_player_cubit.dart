@@ -27,7 +27,7 @@ class RadioPlayerCubit extends Cubit<RadioPlayerState> {
     ));
   }
 
-  void setColor(Color color) {
+  void setColor(Color? color) {
     if (state is RadioPlayerFull) {
       emit(RadioPlayerState.full(
         (state as RadioPlayerFull).radioSelected,

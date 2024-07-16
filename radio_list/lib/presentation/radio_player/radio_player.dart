@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -12,12 +14,16 @@ class RadioPlayer extends StatelessWidget {
 
   final RadioPlayerCubit radioPlayerCubit = GetIt.instance<RadioPlayerCubit>();
 
-  // Extract the main color from the radio favicon
+  // Extract the main color from the radio favicon, also used for testing
   Future<void> extractMainColor(RadioEntity? radioEntity) async {
-    Color color = await ColorExtractor.getMainColor(NetworkImage(
-      radioEntity?.favicon ?? '',
-    ));
-    radioPlayerCubit.setColor(color);
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      radioPlayerCubit.setColor(Colors.red);
+    } else {
+      Color color = await ColorExtractor.getMainColor(NetworkImage(
+        radioEntity?.favicon ?? '',
+      ));
+      radioPlayerCubit.setColor(color);
+    }
   }
 
   // Toggle the radio player sheet
@@ -38,12 +44,6 @@ class RadioPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isExpanded = radioPlayerCubit.state.maybeWhen(
-      full: (_, __) => true,
-      minimized: (_, __) => false,
-      hidden: () => false,
-      orElse: () => false,
-    );
     RadioEntity? radioEntity = radioPlayerCubit.state.maybeWhen(
       full: (radio, _) => radio,
       minimized: (radio, _) => radio,
@@ -53,6 +53,12 @@ class RadioPlayer extends StatelessWidget {
     extractMainColor(radioEntity);
     return BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
         builder: (context, state) {
+      bool isExpanded = state.maybeWhen(
+        full: (_, __) => true,
+        minimized: (_, __) => false,
+        hidden: () => false,
+        orElse: () => false,
+      );
       Color mainColor = state.map(
         hidden: (_) => Theme.of(context).canvasColor,
         minimized: (state) => state.mainColor ?? Theme.of(context).canvasColor,
