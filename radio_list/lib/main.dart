@@ -8,9 +8,9 @@ import 'package:radio_list/injection.dart';
 import 'package:radio_list/presentation/core/theme.dart';
 import 'package:radio_list/presentation/dashboard/dashboard_page.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Injection.setup();
+  await Injection.setup();
   runApp(const MainApp());
 }
 

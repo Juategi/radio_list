@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:radio_list/infraestructure/radio_browser/core/radio_browser_http_service.dart';
+import 'package:radio_list/infraestructure/radio_browser/core/shared_preferences_service.dart';
 import 'package:radio_list/infraestructure/radio_browser/radio_browser_dto.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
 import 'package:radio_list/domain/radio/radio_failure.dart';
@@ -9,8 +10,10 @@ import 'package:radio_list/domain/radio/radio_repository.dart';
 
 class RadioBrowserRepositoryImpl implements RadioRepository {
   final RadioBrowserHtttpService _httpService;
+  final SharedPreferencesService _sharedPreferencesService;
+  RadioBrowserRepositoryImpl(this._httpService, this._sharedPreferencesService);
 
-  RadioBrowserRepositoryImpl(this._httpService);
+  final favoritesKey = 'favorite_radios';
 
   @override
   Future<Either<RadioFailure, List<RadioEntity>>> getRadios(
@@ -23,6 +26,39 @@ class RadioBrowserRepositoryImpl implements RadioRepository {
           .map((radio) => RadioBrowserDto.fromJson(radio).toDomain())
           .toList();
       return Right(radios);
+    } on Exception catch (e) {
+      return Left(RadioFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<RadioFailure, List<RadioEntity>>> getFavoriteRadios() async {
+    try {
+      List<String> favorites =
+          await _sharedPreferencesService.getList(favoritesKey) ?? [];
+      if (favorites.isEmpty) {
+        return const Right([]);
+      }
+      final path = '/json/stations/byuuid/${favorites.join(',')}';
+      final result = await _httpService.get(path);
+      final rawList = json.decode(utf8.decode(result)) as List<dynamic>;
+      final radios = rawList
+          .map((radio) => RadioBrowserDto.fromJson(radio).toDomain())
+          .toList();
+      return Right(radios);
+    } on Exception catch (e) {
+      return Left(RadioFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<RadioFailure, Unit>> saveFavoriteRadio(String radioId) async {
+    try {
+      List<String> favorites =
+          await _sharedPreferencesService.getList(favoritesKey) ?? [];
+      favorites.add(radioId);
+      _sharedPreferencesService.saveList(favoritesKey, favorites);
+      return const Right(unit);
     } on Exception catch (e) {
       return Left(RadioFailure(e.toString()));
     }

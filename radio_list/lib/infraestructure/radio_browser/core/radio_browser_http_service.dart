@@ -18,7 +18,7 @@ class RadioBrowserHtttpService {
       String host = resultAddress.host;
 
       final uri = Uri(scheme: scheme, host: host, path: path, queryParameters: {
-        'limit': '150',
+        'limit': '200',
         'offset': '0',
         'order': 'clicktrend',
       });

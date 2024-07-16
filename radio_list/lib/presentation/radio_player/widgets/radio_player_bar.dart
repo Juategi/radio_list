@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radio_list/application/radio_audio/radio_audio_cubit.dart';
+import 'package:radio_list/application/radio_player/radio_player_cubit.dart';
 import 'package:radio_list/domain/radio/radio_entity.dart';
 import 'package:radio_list/presentation/widgets/radio_image.dart';
 import 'package:radio_list/utils/string_keys.dart';
@@ -12,6 +13,7 @@ class RadioPlayerBar extends StatelessWidget {
   RadioPlayerBar({super.key, this.radioEntity});
   final RadioEntity? radioEntity;
   final RadioAudioCubit radioAudioCubit = GetIt.instance<RadioAudioCubit>();
+  final RadioPlayerCubit radioPlayerCubit = GetIt.instance<RadioPlayerCubit>();
 
   @override
   Widget build(BuildContext context) {

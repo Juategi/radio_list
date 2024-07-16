@@ -14,7 +14,7 @@ class RadioListCubit extends Cubit<RadioListState> {
   Future<void> getRadios(String countryCode) async {
     final result = await _radioRepository.getRadios(countryCode);
     result.fold(
-      (error) => emit(RadioListState.error(error.message)),
+      (error) => emit(const RadioListState.error("Error: reload app")),
       (radios) => emit(RadioListState.loaded(radios
           .where((radio) =>
               radio.favicon != null &&

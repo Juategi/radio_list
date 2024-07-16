@@ -4,4 +4,6 @@ import 'package:radio_list/domain/radio/radio_failure.dart';
 
 abstract class RadioRepository {
   Future<Either<RadioFailure, List<RadioEntity>>> getRadios(String countryCode);
+  Future<Either<RadioFailure, List<RadioEntity>>> getFavoriteRadios();
+  Future<Either<RadioFailure, Unit>> saveFavoriteRadio(String radioId);
 }
