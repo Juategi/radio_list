@@ -25,10 +25,10 @@ class RadioAudioCubit extends Cubit<RadioAudioState> {
   }
 
   void volumeUp() {
-    player.setVolume(player.volume + 0.1);
+    player.setVolume(player.volume + 0.4);
   }
 
   void volumeDown() {
-    player.setVolume(player.volume - 0.1);
+    player.setVolume(player.volume - 0.4);
   }
 }
