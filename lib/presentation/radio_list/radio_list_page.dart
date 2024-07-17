@@ -23,6 +23,7 @@ class RadioListPage extends StatelessWidget {
         ),
         title: Row(
           children: [
+            const SizedBox(width: 8),
             Text(
               StringKeys.hits,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(

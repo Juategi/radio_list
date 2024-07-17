@@ -27,11 +27,16 @@ class _SettingsPageState extends State<SettingsPage> {
             bottomRight: Radius.circular(5),
           ),
         ),
-        title: Text(
-          StringKeys.settings,
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Colors.white,
-              ),
+        title: Row(
+          children: [
+            const SizedBox(width: 8),
+            Text(
+              StringKeys.settings,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+          ],
         ),
         flexibleSpace: Container(decoration: getAppBarDecoration(context)),
       ),
