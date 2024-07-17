@@ -15,6 +15,12 @@ class RadioListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         title: Row(
           children: [
             Text(
@@ -31,12 +37,17 @@ class RadioListPage extends StatelessWidget {
           ],
         ),
         flexibleSpace: Container(
-          decoration: getAppBarDecoration(context),
+          decoration: getAppBarDecoration(context).copyWith(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 26),
             child: SearchField(),
           ),
         ),

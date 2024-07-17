@@ -6,5 +6,5 @@ class StringKeys {
   static const favoriteRadios = 'Radios Favoritas';
   static const listening = 'Escuchando...';
   static const chooseCountry = 'Elige las radios de tu país';
-  static const search = 'Busca...';
+  static const search = '¿Que te apetece escuchar?';
 }

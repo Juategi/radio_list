@@ -13,6 +13,12 @@ class FavoritesListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(5),
+            bottomRight: Radius.circular(5),
+          ),
+        ),
         title: Text(
           StringKeys.favoriteRadios,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
