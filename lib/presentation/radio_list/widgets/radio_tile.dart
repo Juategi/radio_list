@@ -53,6 +53,7 @@ class _RadioTileState extends State<RadioTile> {
                       RadioImage(
                         favicon: widget.radioEntity.favicon ?? '',
                         width: width,
+                        withBackground: true,
                       ),
                       const SizedBox(height: 15),
                       Container(
