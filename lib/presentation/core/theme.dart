@@ -33,10 +33,10 @@ final ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   fontFamily: 'Inter',
   brightness: Brightness.dark,
-  cardColor: Colors.black54,
+  cardColor: const Color.fromARGB(255, 22, 22, 22),
   canvasColor: Colors.grey[800],
   primaryColor: Colors.white,
-  scaffoldBackgroundColor: Colors.black,
+  scaffoldBackgroundColor: const Color.fromARGB(255, 22, 22, 22),
   appBarTheme: const AppBarTheme(
     color: Color.fromARGB(255, 52, 101, 122),
   ),

@@ -81,7 +81,7 @@ class RadioPlayer extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: <Color>[
                       mainColor,
-                      Colors.black,
+                      Theme.of(context).scaffoldBackgroundColor,
                     ],
                   ),
                   borderRadius: const BorderRadius.all(
