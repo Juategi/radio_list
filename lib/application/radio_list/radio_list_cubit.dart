@@ -30,6 +30,7 @@ class RadioListCubit extends Cubit<RadioListState> {
   }
 
   Future<void> searchRadios(String name, Country? country) async {
+    emit(const RadioListState.initial());
     final result =
         await _radioRepository.searchRadios(name, country.toString());
     result.fold(

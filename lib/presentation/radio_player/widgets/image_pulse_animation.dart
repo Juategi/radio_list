@@ -48,8 +48,9 @@ class ImagePulseAnimation extends StatelessWidget {
           child: BlocBuilder<RadioPlayerCubit, RadioPlayerState>(
             builder: (context, state) {
               return state.map(
-                minimized: (minimized) => getPulsator(minimized.mainColor!),
-                full: (full) => getPulsator(full.mainColor!),
+                minimized: (minimized) =>
+                    getPulsator(minimized.mainColor ?? Colors.white),
+                full: (full) => getPulsator(full.mainColor ?? Colors.white),
                 hidden: (_) => const SizedBox(),
               );
             },
