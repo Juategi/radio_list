@@ -45,10 +45,10 @@ class RadioListPage extends StatelessWidget {
             ),
           ),
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(50),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26),
+            padding: EdgeInsets.symmetric(horizontal: 26),
             child: SearchField(),
           ),
         ),

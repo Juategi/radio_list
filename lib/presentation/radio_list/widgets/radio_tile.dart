@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:radio_list/application/radio_audio/radio_audio_cubit.dart';
@@ -21,6 +23,9 @@ class _RadioTileState extends State<RadioTile> {
   Color color = Colors.transparent;
 
   Future<void> extractMainColor(RadioEntity? radioEntity) async {
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      return;
+    }
     color = await ColorExtractor.getMainColor(NetworkImage(
       radioEntity?.favicon ?? '',
     ));

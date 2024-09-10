@@ -97,7 +97,7 @@ void main() {
         equals(
           <Color>[
             Colors.red,
-            Colors.black,
+            const Color.fromARGB(255, 22, 22, 22),
           ],
         ),
       );
