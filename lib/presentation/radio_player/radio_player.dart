@@ -30,7 +30,7 @@ class RadioPlayer extends StatelessWidget {
   void toggleSheet() {
     radioPlayerCubit.state.maybeWhen(
       full: (_, __) {
-        radioPlayerCubit.toMinimized();
+        //radioPlayerCubit.toMinimized();
       },
       minimized: (_, __) {
         radioPlayerCubit.toFullScreen();

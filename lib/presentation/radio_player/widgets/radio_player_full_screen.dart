@@ -28,7 +28,7 @@ class RadioPlayerFullScreen extends StatelessWidget {
             );
           }
           return PopScope(
-            onPopInvoked: (didPop) {
+            onPopInvokedWithResult: (didPop, _) {
               if (!didPop) {
                 radioPlayerCubit.toMinimized();
               }
@@ -45,6 +45,19 @@ class RadioPlayerFullScreen extends StatelessWidget {
                       FavoriteButton(
                         radioId: radioEntity!.id,
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: IconButton(
+                          onPressed: () {
+                            radioPlayerCubit.toMinimized();
+                          },
+                          icon: const Icon(
+                            Icons.keyboard_double_arrow_down,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                       IconButton(
                         onPressed: () {
                           radioAudioCubit.stop();
@@ -55,7 +68,7 @@ class RadioPlayerFullScreen extends StatelessWidget {
                           size: 30,
                           color: Colors.white,
                         ),
-                      )
+                      ),
                     ],
                   ),
                   ImagePulseAnimation(favicon: radioEntity?.favicon ?? ''),

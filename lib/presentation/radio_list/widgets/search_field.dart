@@ -4,10 +4,23 @@ import 'package:radio_list/application/radio_list/radio_list_cubit.dart';
 import 'package:radio_list/application/settings/settings_controller.dart';
 import 'package:radio_list/utils/string_keys.dart';
 
-class SearchField extends StatelessWidget {
-  SearchField({super.key});
+class SearchField extends StatefulWidget {
+  const SearchField({super.key});
+
+  @override
+  State<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
   final TextEditingController controller = TextEditingController();
   final RadioListCubit radioListCubit = GetIt.instance<RadioListCubit>();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     controller.text = '';
